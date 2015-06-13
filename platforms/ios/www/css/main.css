@@ -1,10 +1,13 @@
 #map {
     width: 100%;
     height: 100%;
+<<<<<<< Updated upstream
     position: absolute;
     z-index: -3;
     top: 0;
     left: 0;
+=======
+>>>>>>> Stashed changes
 }
 .ol-attribution,
 .ol-zoom {
@@ -78,7 +81,11 @@ canvas {
 #kntdr {
     position: fixed;
     background: rgba(255, 252, 250, 0.95);
+<<<<<<< Updated upstream
     z-index: 3;
+=======
+    z-index: 99999999999;
+>>>>>>> Stashed changes
     width: 100%;
     top: 0;
     left: 0;
@@ -88,11 +95,19 @@ canvas {
 }
 
 .short {
+<<<<<<< Updated upstream
     height: 260px;
 }
 
 .long {
     height: 330px;
+=======
+    height: 247px;
+}
+
+.long {
+    height: 320px;
+>>>>>>> Stashed changes
     transition: height .1s ease-out;
 }
 
@@ -103,7 +118,10 @@ canvas {
     width: 100%;
     top: 0;
     left: 0;
+<<<<<<< Updated upstream
     margin-top: 12px;
+=======
+>>>>>>> Stashed changes
 }
 
 .fotorama {

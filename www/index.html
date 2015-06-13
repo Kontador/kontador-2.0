@@ -1,255 +1,139 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="apple-mobile-web-app-capable" content="yes" />
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="chrome=1">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
 
-    <link rel="apple-touch-icon" href="touch-icon.png" />
+	<link rel="apple-touch-icon" href="touch-icon.png" />
 
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
+	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
 
 	<link rel="stylesheet" href="css/fotorama.css" type="text/css">
-    <link rel="stylesheet" href="css/main.css" type="text/css">
-    <title>Kontador</title>
+	<link rel="stylesheet" href="css/main.css" type="text/css">
+	<title>Kontador</title>
 </head>
 <body>
-    <div id="kntdr" class="short">
+	<div id="kntdr" class="short">
 
-        <div class="inner list emerge" data-spin="true">
-        	<div class="fotorama" data-auto="false" data-arrows="false" data-click="false" data-shadows="false" data-width="100%" data-height="210">
-        		<div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
+		<div class="inner list emerge" data-spin="true">
+			<div class="fotorama" data-auto="false" data-arrows="false" data-click="false" data-shadows="false" data-width="100%" data-height="210">
+				<div class="item dist">
+					<h4>На дистанцию</h4>
+					<h3>ул. Ленина — Аэропорт</h3>
 
-                    <h1>28,5 км</h1>
+					<h1>28,5 км</h1>
 
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-        		</div>
+					<button><a href="javascript:start('dist')">Начать</a></button>
+				</div>
 
-                <div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
+				<div class="item time">
+					<h4>На время</h4>
+					<h3>Кедровый лог</h3>
 
-                    <h1>28,5 км</h1>
+					<h1>17 мин</h1>
 
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-                </div>
+					<button><a href="javascript:start('time')">Начать</a></button>
+				</div>
+				
+			</div>
+		</div>
 
-                <div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
+		<div class="inner start">
+			<h4>До начала маршрута</h4>
+			<h1>2 км</h1>
 
-                    <h1>28,5 км</h1>
+			<button><a href="javascript:route()">Остановить</a></button>
+		</div>
 
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-        		</div>
+		<div class="inner route">
+			<h4>На дистанцию: Путь на Берлин</h4>
+			<h1>2,8 км</h1>
 
-                <div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
+			<div class="take-three">
+				<div class="col">
+					<h2>12</h2>
+					<h4>км/ч</h4>
+				</div>
+				<div class="col">
+					<h2>26</h2>
+					<h4>Осталось</h4>
+				</div>
+				<div class="col">
+					<h2>0:08</h2>
+					<h4>Прошло</h4>
+				</div>
+			</div>
 
-                    <h1>28,5 км</h1>
+			<button>
+				<a href="javascript:finish()">
+				<svg width="20px" height="28px" viewBox="0 0 27 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<defs></defs>
+					<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+						<g id="Counter" sketch:type="MSArtboardGroup" transform="translate(-303.000000, -545.000000)">
+							<g id="Text-block-—-Menu-1" sketch:type="MSLayerGroup" transform="translate(1.000000, 58.000000)">
+								<path d="M302.025395,487.872 L302.025395,525 L310.189395,525 L310.189395,487.872 L302.025395,487.872 Z M320.470515,487.872 L320.470515,525 L328.634515,525 L328.634515,487.872 L320.470515,487.872 Z" id="2-км" sketch:type="MSShapeGroup"></path>
+							</g>
+						</g>
+					</g>
+				</svg>
+				</a>
+			</button>
+		</div>
 
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-        		</div>
+		<div class="inner finish">
+			<h4>На дистанцию: Путь на Берлин</h4>
 
-                <div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
+			<h1>Ура</h1>
 
-                    <h1>28,5 км</h1>
+			<div class="take-three">
+				<div class="col">
+					<h2>26</h2>
+					<h4>км</h4>
+				</div>
+				<div class="col">
+					<h2>0:08</h2>
+					<h4>время</h4>
+				</div>
+			</div>
 
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-        		</div>
+			<button onclick="stop()">Закончить</button>
 
-                <div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
+			<button class="share">
+				<svg width="22px" height="36px" viewBox="0 0 36 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					<defs></defs>
+					<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+						<g id="1432697885_download" sketch:type="MSLayerGroup" transform="translate(-7.000000, 0.000000)">
+							<path d="M33,2 L25,10 L17,2" id="Shape" stroke-width="2" sketch:type="MSShapeGroup" transform="translate(25.000000, 6.000000) scale(-1, -1) translate(-25.000000, -6.000000) "></path>
+							<path d="M25,2 L25,33.668" id="Shape" stroke-width="2" sketch:type="MSShapeGroup"></path>
+							<rect id="Rectangle-path" sketch:type="MSShapeGroup" x="0" y="0" width="50" height="50"></rect>
+							<path d="M17,17 L8,17 L8,49 L42,49 L42,17 L33,17" id="Shape" stroke-width="2" sketch:type="MSShapeGroup"></path>
+						</g>
+					</g>
+				</svg>
+			</button>
+		</div>
 
-                    <h1>28,5 км</h1>
+	</div>
 
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-        		</div>
-
-                <div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
-
-                    <h1>28,5 км</h1>
-
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-        		</div>
-
-                <div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
-
-                    <h1>28,5 км</h1>
-
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-        		</div>
-
-                <div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
-
-                    <h1>28,5 км</h1>
-
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-        		</div>
-
-                <div class="item dist">
-                    <h4>На дистанцию</h4>
-                    <h3>ул. Ленина — Аэропорт</h3>
-
-                    <h1>28,5 км</h1>
-
-                    <button><a href="javascript:start('dist')">Начать</a></button>
-        		</div>
-
-                <div class="item time">
-                    <h4>На время</h4>
-                    <h3>Кедровый лог</h3>
-
-                    <h1>17 мин</h1>
-
-                    <button><a href="javascript:start('time')">Начать</a></button>
-        		</div>
-
-                <div class="item time">
-                    <h4>На время</h4>
-                    <h3>Кедровый лог</h3>
-
-                    <h1>17 мин</h1>
-
-                    <button><a href="javascript:start('time')">Начать</a></button>
-        		</div>
-
-                <div class="item time">
-                    <h4>На время</h4>
-                    <h3>Кедровый лог</h3>
-
-                    <h1>17 мин</h1>
-
-                    <button><a href="javascript:start('time')">Начать</a></button>
-        		</div>
-
-                <div class="item time">
-                    <h4>На время</h4>
-                    <h3>Кедровый лог</h3>
-
-                    <h1>17 мин</h1>
-
-                    <button><a href="javascript:start('time')">Начать</a></button>
-        		</div>
-
-                <div class="item time">
-                    <h4>На время</h4>
-                    <h3>Кедровый лог</h3>
-
-                    <h1>17 мин</h1>
-
-                    <button><a href="javascript:start('time')">Начать</a></button>
-        		</div>jb
-        	</div>
-        </div>
-
-        <div class="inner start">
-            <h4>До начала маршрута</h4>
-            <h1>2 км</h1>
-
-            <button><a href="javascript:route()">Остановить</a></button>
-        </div>
-
-        <div class="inner route">
-            <h4>На дистанцию: Путь на Берлин</h4>
-            <h1>2,8 км</h1>
-
-            <div class="take-three">
-                <div class="col">
-                    <h2>12</h2>
-                    <h4>км/ч</h4>
-                </div>
-                <div class="col">
-                    <h2>26</h2>
-                    <h4>Осталось</h4>
-                </div>
-                <div class="col">
-                    <h2>0:08</h2>
-                    <h4>Прошло</h4>
-                </div>
-            </div>
-
-            <button>
-                <a href="javascript:finish()">
-                <svg width="20px" height="28px" viewBox="0 0 27 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <defs></defs>
-                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                        <g id="Counter" sketch:type="MSArtboardGroup" transform="translate(-303.000000, -545.000000)">
-                            <g id="Text-block-—-Menu-1" sketch:type="MSLayerGroup" transform="translate(1.000000, 58.000000)">
-                                <path d="M302.025395,487.872 L302.025395,525 L310.189395,525 L310.189395,487.872 L302.025395,487.872 Z M320.470515,487.872 L320.470515,525 L328.634515,525 L328.634515,487.872 L320.470515,487.872 Z" id="2-км" sketch:type="MSShapeGroup"></path>
-                            </g>
-                        </g>
-                    </g>
-                </svg>
-                </a>
-            </button>
-        </div>
-
-        <div class="inner finish">
-            <h4>На дистанцию: Путь на Берлин</h4>
-
-            <h1>Ура</h1>
-
-            <div class="take-three">
-                <div class="col">
-                    <h2>26</h2>
-                    <h4>км</h4>
-                </div>
-                <div class="col">
-                    <h2>0:08</h2>
-                    <h4>время</h4>
-                </div>
-            </div>
-
-            <button onclick="stop()">Закончить</button>
-
-            <button class="share">
-                <svg width="22px" height="36px" viewBox="0 0 36 50" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-                    <defs></defs>
-                    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-                        <g id="1432697885_download" sketch:type="MSLayerGroup" transform="translate(-7.000000, 0.000000)">
-                            <path d="M33,2 L25,10 L17,2" id="Shape" stroke-width="2" sketch:type="MSShapeGroup" transform="translate(25.000000, 6.000000) scale(-1, -1) translate(-25.000000, -6.000000) "></path>
-                            <path d="M25,2 L25,33.668" id="Shape" stroke-width="2" sketch:type="MSShapeGroup"></path>
-                            <rect id="Rectangle-path" sketch:type="MSShapeGroup" x="0" y="0" width="50" height="50"></rect>
-                            <path d="M17,17 L8,17 L8,49 L42,49 L42,17 L33,17" id="Shape" stroke-width="2" sketch:type="MSShapeGroup"></path>
-                        </g>
-                    </g>
-                </svg>
-            </button>
-        </div>
-
-    </div>
-
-    <img id="location-marker" />
-    <div id="map"></div>
+	<img id="location-marker" />
+	<div id="map"></div>
 
 
-    <script type="text/javascript">
-        if (!navigator.userAgent.toLowerCase().match('chrome')) {
-            document.write("<script src='cordova.js'><\/script>");
-        }
-    </script>
+	<script type="text/javascript">
+		if (!navigator.userAgent.toLowerCase().match('chrome')) {
+			document.write("<script src='cordova.js'><\/script>");
+		}
+	</script>
 
-    <script type="text/javascript" src="js/jquery.js"></script>
+	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/fotorama.js"></script>
-    <script type="text/javascript" src="js/ol.js"></script>
-    <script type="text/javascript" src="js/emerge.js"></script>
-    <script type="text/javascript" src="js/app.js"></script>
-    <script type="text/javascript" src="js/ui.js"></script>
+	<script type="text/javascript" src="js/ol.js"></script>
+	<script type="text/javascript" src="js/emerge.js"></script>
+	<script type="text/javascript" src="js/app.js"></script>
+	<script type="text/javascript" src="js/ui.js"></script>
 </body>
 </html>
 
-    </body>
+	</body>
 </html>
