@@ -9,8 +9,8 @@ var map = new ol.Map({
   layers: [
     new ol.layer.Tile({
       source: new ol.source.XYZ({
-        url: 'http://tiles.{a-z}.st.vmp.ru/{z}/{x}/{y}.png',
-        tilePixelRatio: 1,
+        //        url: 'http://api.tiles.mapbox.com/v4/vanyaklimenko.iajg5k00/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidmFueWFrbGltZW5rbyIsImEiOiJVOTRmSUowIn0.kmHbep2kGteMcaAQAlYllA'
+        url: 'http://tiles.{a-z}.st.vmp.ru/{z}/{x}/{y}.png'
       }),
     })
   ],
@@ -72,7 +72,7 @@ geolocation.on('change', function(evt) {
    iconStyle = new ol.style.Style({
     image: new ol.style.Icon(({
       rotation: 0,
-      src: 'location.png',
+      src: 'img/location.png',
       scale: 0.13
     }))
   });
