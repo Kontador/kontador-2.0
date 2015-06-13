@@ -6,22 +6,24 @@ var view = new ol.View({
 
 // creating the map
 var map = new ol.Map({
-	layers: [
-		new ol.layer.Tile({
-			source: new ol.source.XYZ({
-				url: 'http://tiles.{a-z}.st.vmp.ru/{z}/{x}/{y}.png',
-				tilePixelRatio: 1,
-			}),
-		})
-	],
-	target: 'map',
-	view: view,
-	interactions: ol.interaction.defaults({
-			keyboard: false,
-			DragAndDrop: false,
-			altShiftDragRotate:false,
-			pinchRotate:false
-	})
+  layers: [
+    new ol.layer.Tile({
+      source: new ol.source.XYZ({
+        url: 'http://tiles.{a-z}.st.vmp.ru/{z}/{x}/{y}.png',
+        tilePixelRatio: 1.5,
+        minZoom: 12,
+        maxZoom: 18
+      }),
+    })
+  ],
+  target: 'map',
+  view: view,
+  interactions: ol.interaction.defaults({
+      keyboard: false,
+      DragAndDrop: false,
+      altShiftDragRotate:false,
+      pinchRotate:false
+  })
 });
 
 // Geolocation marker
