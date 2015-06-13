@@ -24,7 +24,7 @@
 
 					<h1>28,5 км</h1>
 
-					<button><a href="javascript:start('dist')">Начать</a></button>
+					<button><a onclick="start('dist')">Начать</a></button>
 				</div>
 
 				<div class="item time">
@@ -33,7 +33,7 @@
 
 					<h1>17 мин</h1>
 
-					<button><a href="javascript:start('time')">Начать</a></button>
+					<button><a onclick="start('time')">Начать</a></button>
 				</div>
 				
 			</div>
@@ -43,7 +43,7 @@
 			<h4>До начала маршрута</h4>
 			<h1>2 км</h1>
 
-			<button><a href="javascript:route()">Остановить</a></button>
+			<button><a onclick="route()">Остановить</a></button>
 		</div>
 
 		<div class="inner route">
@@ -60,13 +60,13 @@
 					<h4>Осталось</h4>
 				</div>
 				<div class="col">
-					<h2>0:08</h2>
+					<h2 id="timer">0:00:00</h2>
 					<h4>Прошло</h4>
 				</div>
 			</div>
 
-			<button>
-				<a href="javascript:finish()">
+			<button id="stopTimer" onclick="stopTimer()">
+				<a onlick="finish()">
 				<svg width="20px" height="28px" viewBox="0 0 27 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 					<defs></defs>
 					<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
@@ -118,13 +118,6 @@
 
 	<img id="location-marker" />
 	<div id="map"></div>
-
-
-	<script type="text/javascript">
-		if (!navigator.userAgent.toLowerCase().match('chrome')) {
-			document.write("<script src='cordova.js'><\/script>");
-		}
-	</script>
 
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/fotorama.js"></script>
