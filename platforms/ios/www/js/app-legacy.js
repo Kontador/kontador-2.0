@@ -15,21 +15,20 @@ var map = new ol.Map({
     })
   ],
   target: 'map',
-  view: view,
-  interactions: ol.interaction.defaults({
-      keyboard: false,
-      DragAndDrop: false,
-      altShiftDragRotate:false,
-      pinchRotate:false
-  })
+  view: view
 });
+ol.interaction.defaults({
+  keyboard: false,
+  dragPan: false,
+  dragPan: false,
+})
 
 // Geolocation marker
 
 var iconFeature = new ol.Feature({});
-var iconStyle = new ol.style.Style({});
- var vectorLayer = new ol.layer.Vector({});
- var a = true;
+//var iconStyle = new ol.style.Style({});
+var vectorLayer = new ol.layer.Vector({});
+var a = true;
 
 var viewOption = true; // True - показывает местоположение False - ничего
 
@@ -69,11 +68,13 @@ geolocation.on('change', function(evt) {
   });
 
 
-   iconStyle = new ol.style.Style({
+   var iconStyle = new ol.style.Style({
     image: new ol.style.Icon(({
       rotation: 0,
-      src: 'img/location.png',
-      scale: 0.13
+      src: 'location-head.png',
+      size: [162, 165],
+      scale: 0.1,
+      rotateWithView: true,
     }))
   });
 
@@ -86,14 +87,15 @@ geolocation.on('change', function(evt) {
   vectorLayer = new ol.layer.Vector({
     source: vectorSource
   });
-  if (a){
-    map.addLayer(vectorLayer);
-    a = false;
-}
-  var abcd = iconFeature.getStyle().getImage().setRotation();
+
+  //var abcd = iconFeature.getStyle().getImage().setRotation();
 
   addPosition(position, heading, m, speed);
 
+  if (a){
+    map.addLayer(vectorLayer);
+    a = false;
+  }
   var coords = positions.getCoordinates();
   var len = coords.length;
   if (len >= 2) {
@@ -144,7 +146,8 @@ map.beforeRender(function(map, frameState) {
     // interpolate position along positions LineString
     var c = positions.getCoordinateAtM(m, true);
     if (c) {
-        iconFeature.getStyle().getImage().setRotation(-c[2]);
+        iconFeature.getStyle().getImage().setRotation();
+
     }
   }
   return true; // Force animation to continue
@@ -158,6 +161,7 @@ function render() {
 geolocation.setTracking(true);
 map.on('postcompose', render);
 map.render();
+
 
 
 
