@@ -215,3 +215,18 @@ window.onload = function () {
     }
     startTimer();
 }
+
+// ----- Get Routes
+
+$.getJSON( "json/routes.json", function( data ) {
+  for(var i=0; i < data.routes.length; i++){
+    var item = data.routes[i][i+1][0];
+    $("#item"+i).html(item.name);
+    console.log(item.latlngs);
+    var points = new Array(
+      new ol.geom.Point(61.254417055826664, 73.39525938034058),
+      new ol.geom.Point(61.2550981320786, 61.2550981320786)
+    );
+    var line = new ol.geom.LineString(points);
+  }
+});
