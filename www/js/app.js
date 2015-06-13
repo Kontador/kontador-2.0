@@ -167,7 +167,7 @@ map.render();
 
 //---- kontador timer
 
-var hours = 0, mins = 59, secs = 55;
+var hours = 0, mins = 0, secs = 0;
 function resetTimer(){
 	secs = 0, mins = 0, hours = 0;
 }
@@ -175,11 +175,11 @@ function startTimer(){
 	tick = setInterval(function(){
 		secs += 1;
 		if(secs < 10){
-			hsecs = '0' + secs;
+			hsecs = ':0' + secs;
 		} else if(secs == 60){
 			mins += 1;
 			secs = 0;
-			hsecs = '0' + secs;
+			hsecs = ':0' + secs;
 		} 
 		else 
 			hsecs = ':' + secs;
@@ -198,7 +198,8 @@ function startTimer(){
 			hhours = '';
 		else {
 			hhours = hours + ':';
-			hsecs = "<sup>:" + hsecs + "</sup>";
+			hsecs = "<sup>" + hsecs + "</sup>";
+			
 		}
 
 		$("#timer").html(hhours + hmins + hsecs);
