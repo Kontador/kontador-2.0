@@ -1,0 +1,165 @@
+#map {
+    width: 100%;
+    height: 100%;
+}
+.ol-attribution,
+.ol-zoom {
+    display: none;
+}
+
+#location-marker {
+    width: 48px;
+    height: auto;
+}
+
+.fotorama__dot {
+    border: 1px solid #999;
+    background: #999;
+}
+
+.fotorama__nav__frame.fotorama__active .fotorama__dot {
+    background: #000;
+    border-color: #000;
+}
+
+.fotorama__nav--dots .fotorama__nav__frame {
+    width: 12px;
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+body {
+    -webkit-touch-callout: none;
+    -webkit-text-size-adjust: none;
+    -webkit-user-select: none;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    position: fixed;
+    -webkit-font-smoothing: antialiased;
+}
+canvas {
+    -webkit-filter: saturate(0.4);
+}
+
+.dist h1, .dist button, .start.dist *, .dist .share path {
+    color: #ff4e00;
+    stroke: #ff4e00;
+}
+
+.time h1, .time button, .start.time *, .time .share path {
+    color: #7ed321;
+    stroke: #7ed321;
+}
+
+.route.dist button path {
+    fill: #ff4e00;
+}
+
+.route.time button path {
+    fill: #7ed321;
+}
+
+#kntdr {
+    position: fixed;
+    background: rgba(255, 252, 250, 0.95);
+    z-index: 99999999999;
+    width: 100%;
+    top: 0;
+    left: 0;
+    text-align: center;
+    transition: height .1s ease-out;
+    box-shadow: 0 3px 20px rgba(5, 2, 0, .1);
+}
+
+.short {
+    height: 247px;
+}
+
+.long {
+    height: 320px;
+    transition: height .1s ease-out;
+}
+
+.inner {
+    display: none;
+    position: fixed;
+    z-index: 99999999999;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+.fotorama {
+    height: 100%;
+    width: 100%;
+}
+
+.take-three .col {
+    display: inline-block;
+    width: 30%;
+    margin-top: 20px;
+}
+
+h1 {
+    font-weight: 100;
+    font-size: 96px;
+    margin: 10px 0 0;
+    line-height: 96px;
+}
+
+.item h1 {
+    font-size: 64px;
+    line-height: 64px;
+}
+
+h2 {
+    font-size: 32px;
+    line-height: 32px;
+    font-weight: 200;
+    margin: 0;
+}
+
+h3,
+button {
+    font-weight: 400;
+    font-size: 18px;
+    margin: 0 0 0.3em 0;
+}
+
+h4 {
+    font-weight: 500;
+    font-size: 11px;
+    margin: 10px 0 20px 0;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+}
+
+.col h4 {
+    margin: 7px 0;
+}
+
+button {
+    -webkit-appearance: none;
+    background: 0;
+    border: 0;
+    font-weight: 400;
+    padding: 30px;
+}
+
+button.share {
+    position: absolute;
+    right: 0;
+    bottom: -7px;
+}
