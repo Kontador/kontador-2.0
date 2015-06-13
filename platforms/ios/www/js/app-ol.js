@@ -19,11 +19,7 @@ var map = new ol.Map({
   interactions: ol.interaction.defaults({
       keyboard: false,
       DragAndDrop: false,
-<<<<<<< Updated upstream
       altShiftDragRotate:false,
-=======
-      altShiftDragRotate:false, 
->>>>>>> Stashed changes
       pinchRotate:false
   })
 });
@@ -76,11 +72,7 @@ geolocation.on('change', function(evt) {
    iconStyle = new ol.style.Style({
     image: new ol.style.Icon(({
       rotation: 0,
-<<<<<<< Updated upstream
       src: 'img/location.png',
-=======
-      src: 'location.png',
->>>>>>> Stashed changes
       scale: 0.13
     }))
   });
@@ -169,8 +161,4 @@ map.render();
 
 
 
-<<<<<<< Updated upstream
 //---------------------------------------------------------------------------------------------------------
-=======
-//---------------------------------------------------------------------------------------------------------
->>>>>>> Stashed changes
