@@ -109,7 +109,7 @@ canvas {
     width: 100%;
     top: 0;
     left: 0;
-    margin-top: 12px;
+    margin-top: 18px;
 }
 
 .fotorama {
@@ -131,14 +131,14 @@ h1 {
 }
 
 .item h1 {
-    font-size: 64px;
-    line-height: 64px;
+    font-size: 80px;
+    line-height: 80px;
 }
 
 h2 {
     font-size: 32px;
     line-height: 32px;
-    font-weight: 200;
+    font-weight: 300;
     margin: 0;
 }
 
@@ -166,7 +166,7 @@ button {
     background: 0;
     border: 0;
     font-weight: 400;
-    padding: 30px;
+    padding: 20px;
 }
 
 button.share {
