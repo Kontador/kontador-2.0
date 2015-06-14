@@ -42,6 +42,9 @@
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		D4A0D8761607E02300AEF8BB /* Default-568h@2x~iphone.png in Resources */ = {isa = PBXBuildFile; fileRef = D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */; };
 		D887543BC8D84FD1838169C7 /* CDVLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F919971F4CF4B9CA3886987 /* CDVLocation.m */; };
+		0D50D211C3A34515999F17D7 /* SocialSharing.m in Sources */ = {isa = PBXBuildFile; fileRef = C5232A8C3A0343FCBFA37363 /* SocialSharing.m */; };
+		8E84872249A046A6812AFEEA /* Social.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 47B5B2433CE1437DB7DE9D3E /* Social.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		A384683779444141A313C3C9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 56B0E9AC578542EA881D993A /* MessageUI.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -113,6 +116,10 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		EBE4F69835744DEF9966F378 /* CDVNotification.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = CDVNotification.bundle; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Kontador/config.xml; sourceTree = "<group>"; };
+		C5232A8C3A0343FCBFA37363 /* SocialSharing.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "SocialSharing.m"; path = "nl.x-services.plugins.socialsharing/SocialSharing.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		E01E561E37FE47C2A454C4FA /* SocialSharing.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "SocialSharing.h"; path = "nl.x-services.plugins.socialsharing/SocialSharing.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		47B5B2433CE1437DB7DE9D3E /* Social.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "Social.framework"; path = "System/Library/Frameworks/Social.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
+		56B0E9AC578542EA881D993A /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = "MessageUI.framework"; path = "System/Library/Frameworks/MessageUI.framework"; sourceTree = SDKROOT; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,6 +132,8 @@
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
+				8E84872249A046A6812AFEEA /* Social.framework in Frameworks */,
+				A384683779444141A313C3C9 /* MessageUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -201,6 +210,8 @@
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
 				B610CD5F2A7E41CC8066B1FE /* AudioToolbox.framework */,
+				47B5B2433CE1437DB7DE9D3E /* Social.framework */,
+				56B0E9AC578542EA881D993A /* MessageUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -220,6 +231,8 @@
 				946BAD4194C44250BB63A383 /* CDVNotification.h */,
 				9F919971F4CF4B9CA3886987 /* CDVLocation.m */,
 				410CB3791AA04D6D98D9E6F7 /* CDVLocation.h */,
+				C5232A8C3A0343FCBFA37363 /* SocialSharing.m */,
+				E01E561E37FE47C2A454C4FA /* SocialSharing.h */,
 			);
 			name = Plugins;
 			path = Kontador/Plugins;
@@ -415,6 +428,7 @@
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
 				D887543BC8D84FD1838169C7 /* CDVLocation.m in Sources */,
+				0D50D211C3A34515999F17D7 /* SocialSharing.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
