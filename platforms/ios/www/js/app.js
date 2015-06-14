@@ -1,7 +1,8 @@
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady(){}
+$(function(){
+  document.addEventListener("deviceready", onDeviceReady, false);
+})
 
-$(document).ready(function(){
+// function onDeviceReady() {
 
     //---------------------------------------------------------------------------------------------------------
 
@@ -10,7 +11,6 @@ $(document).ready(function(){
     var view = new ol.View({
       center: ol.proj.transform([73.39646100997925, 61.253983635981406], 'EPSG:4326', 'EPSG:3857'),
     	zoom: 16
-    	
     });
      
     var map = new ol.Map({
@@ -81,7 +81,10 @@ $(document).ready(function(){
       if(speedHTML >= 10){
         speedHTML = speedHTML.slice(-1);
       }
+<<<<<<< HEAD
       console.log(speedHTML);
+=======
+>>>>>>> origin/master
       $('#speed').html(speedHTML);
       var m = Date.now();
 
@@ -95,8 +98,13 @@ $(document).ready(function(){
 
     });
 
+<<<<<<< HEAD
     geolocation.on('error', function(e) {
       alert('geolocation error'+ e);
+=======
+    geolocation.on('error', function() {
+      console.log('geolocation error');
+>>>>>>> origin/master
     });
 
     function radToDeg(rad) {
@@ -294,6 +302,7 @@ $(document).ready(function(){
         countLineRoutes++;
       }
     }
+<<<<<<< HEAD
     // Logic
     function heat() {
       $('.start').hide();
@@ -350,6 +359,13 @@ $(document).ready(function(){
       frameNumb = 0;
       $(function () {
 
+=======
+    
+    setTimeout(function(){
+      frameNumb = 0;
+      $(function () {
+    
+>>>>>>> origin/master
           $('.fotorama')
           .on('fotorama:showend ',
                   function (e, fotorama) {
@@ -361,6 +377,7 @@ $(document).ready(function(){
         });
     }, 500);
 
+<<<<<<< HEAD
 });
 
 
@@ -368,3 +385,6 @@ $(document).ready(function(){
 
 
 
+=======
+// });
+>>>>>>> origin/master

@@ -16,14 +16,12 @@
 
 <body>
 	<div class="safety notice">
-  	<div class="emerge" data-hold="500" data-effect="screw" data-duration="300" data-spin="true" data-spin-color="#fff">
-  		<figure>!</figure>
-  		<h2>Предупреждение безопасности</h2>
-  		<p>Уделяйте особое внимание обстановке на дорогах. Маршрут может оказаться неточным, на нём могут отсутствовать тротуары и пешеходные переходы.</p>
-  		<button class="emerge" data-hold="900" data-duration="600" data-effect="relax">Продолжить</button>
-  	</div>
+		<figure>!</figure>
+		<h2>Предупреждение безопасности</h2>
+		<p>Уделяйте особое внимание обстановке на дорогах. Маршрут может оказаться неточным, на нём могут отсутствовать тротуары и пешеходные переходы.</p>
+		<button class="emerge" data-hold="400" data-duration="700">Продолжить</button>
 	</div>
-	<div id="blur">
+	<div id="blur" class="notice-shown">
 		<div id="kntdr" class="short">
 
 			<div class="inner list emerge" data-spin="true">
@@ -35,26 +33,26 @@
 			<div class="inner start">
 
 				<h4>До начала маршрута</h4>
-				<h1>2 км</h1>
+				<h1>−− км</h1>
 
 				<button><a onclick="route()">Остановить</a></button>
 			</div>
 
 			<div class="inner route">
 				<h4 id="item2">На дистанцию</h4>
-				<h1>2,8 км</h1>
+				<h1>−−,− км</h1>
 
 				<div class="take-three">
 					<div class="col">
-						<h2 id="speed">0</h2>
+						<h2 id="speed">−,−</h2>
 						<h4>км/ч</h4>
 					</div>
 					<div class="col">
-						<h2>26</h2>
+						<h2>−−</h2>
 						<h4>Осталось</h4>
 					</div>
 					<div class="col">
-						<h2 id="timer">0:00:00</h2>
+						<h2 id="timer">−:−−</h2>
 						<h4>Прошло</h4>
 					</div>
 				</div>
@@ -76,7 +74,7 @@
 			</div>
 
 			<div class="inner finish">
-				<h4>На дистанцию: Путь на Берлин</h4>
+				<h4>На дистанцию</h4>
 
 				<h1>Ура</h1>
 
@@ -114,6 +112,11 @@
 		<div id="map"></div>
 	</div>
 
+<<<<<<< HEAD
+=======
+	<script type="text/javascript" src="cordova.js"></script>
+
+>>>>>>> origin/master
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/fotorama.js"></script>
 	<script type="text/javascript" src="js/ol.js"></script>

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
     // Logic
     function heat() {
       $('.start').hide();
@@ -10,6 +11,15 @@
         $('.notice').fadeIn(200);
       }, 500);
     };
+=======
+function heat() {
+	$('.start').hide();
+	$('.route').hide();
+	$('.finish').hide();
+	$('.list').show();
+	$('#kntdr').attr('class', 'short');
+};
+>>>>>>> origin/master
 
     $('.notice button').click(function() {
       $('.notice').fadeOut(200);
