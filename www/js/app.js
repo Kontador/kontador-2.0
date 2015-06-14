@@ -77,8 +77,11 @@ $(document).ready(function(){
       console.log('Уважаемый пользователь! Уведомляем о том, что на данный момент произошло изменение позиции! Спасибо за понимание!' + position);
 
       // -----  Speed.
-
-      $('#speed').html((speed * 3.6).toFixed(1).slice(-1));
+      var speedHTML = Math.floor((speed * 3.6).toFixed(1));
+      if(speedHTML >= 10){
+        speedHTML = speedHTML.slice(-1);
+      }
+      $('#speed').html(speedHTML);
       var m = Date.now();
 
       addPosition(position, heading, m, speed);
@@ -296,7 +299,6 @@ $(document).ready(function(){
 
         map.addLayer(vectorLayerLineFirst);
         countLineRoutes++;
-        console.log(comp);
       }
     }
 
