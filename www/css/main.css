@@ -96,6 +96,10 @@ canvas {
     box-shadow: 0 3px 20px rgba(5, 2, 0, .1);
 }
 
+#blur {
+    transition: -webkit-filter .2s ease-in-out;
+}
+
 .short {
     height: 260px;
 }
