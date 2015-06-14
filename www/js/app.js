@@ -1,4 +1,4 @@
-window.onload = function () {
+$(document).ready(function(){
     // creating the view
     var view = new ol.View({
     	center: ol.proj.transform([73.241, 61.143], 'EPSG:4326', 'EPSG:3857'),
@@ -214,19 +214,54 @@ window.onload = function () {
     	clearInterval(tick);
     }
     startTimer();
-}
 
 // ----- Get Routes
 
 $.getJSON( "json/routes.json", function( data ) {
+  // Парсим все маршруты:
   for(var i=0; i < data.routes.length; i++){
     var item = data.routes[i][i+1][0];
     $("#item"+i).html(item.name);
-    console.log(item.latlngs);
-    var points = new Array(
-      new ol.geom.Point(61.254417055826664, 73.39525938034058),
-      new ol.geom.Point(61.2550981320786, 61.2550981320786)
-    );
-    var line = new ol.geom.LineString(points);
+    console.log(i+1 + " маршрут serializing");
+    // Парсим все кординаты из одного маршрута:
+    var routesArr = new Array();
+    for(var e=0; e < item.latlngs.length; e++){
+      routesArr.push(item.latlngs[e]);
+    }
+    var rend = {}
+    rend.latlngs = routesArr;
+    addRoutes(rend);
   }
+});
+
+var countLineRoutes = 0;
+var vectorLayerLineFirst = new ol.layer.Vector({});
+
+
+function addRoutes(coord) {
+  if (countLineRoutes == 0) {
+    var comp = new Array();
+
+    for (var i = 0; i < coord.latlngs.length; i++) {
+      var xandy = ol.proj.transform([coord.latlngs[i].lng, coord.latlngs[i].lat], 'EPSG:4326', 'EPSG:3857');
+      comp.push(xandy);
+    }
+
+    var firstroutesF = new ol.Feature({
+      geometry: new ol.geom.LineString(comp)
+    });
+
+    var vectorLineFirst = new ol.source.Vector({});
+    vectorLineFirst.addFeature(firstroutesF);
+
+    vectorLayerLineFirst = new ol.layer.Vector({
+      source: vectorLineFirst
+    });
+
+    map.addLayer(vectorLayerLineFirst);
+    countLineRoutes++;
+    console.log(comp);
+  }
+}
+
 });
