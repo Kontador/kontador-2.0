@@ -70,7 +70,9 @@ $(document).ready(function(){
       var speed    = geolocation.getSpeed() || 0; // GLOBAL VARIABLE
 
 
+
       // -----  Speed.
+      clearInterval(speedometr);
       speedometr = setInterval(function(){
           var speed = geolocation.getSpeed() || 0; // GLOBAL VARIABLE
           $("#speed").html(speed);
