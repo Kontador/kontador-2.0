@@ -28,9 +28,12 @@ $(document).ready(function(){
       view: view,
       interactions: ol.interaction.defaults({
           keyboard: false,
-          DragAndDrop: false,
-          altShiftDragRotate:false,
-          pinchRotate:true
+          dragAndDrop: false,
+          dragRotate: false,
+          dragPan: false,
+          altShiftDragRotate: false,
+          pinchRotate: false,
+          pinchZoom: true
       })
     });
 
@@ -74,8 +77,12 @@ $(document).ready(function(){
       console.log('Уважаемый пользователь! Уведомляем о том, что на данный момент произошло изменение позиции! Спасибо за понимание!' + position);
 
       // -----  Speed.
-
-      $('#speed').html((speed * 3.6).toFixed(1).slice(-1));
+      var speedHTML = Math.floor((speed * 3.6).toFixed(1));
+      if(speedHTML >= 10){
+        speedHTML = speedHTML.slice(-1);
+      }
+      console.log(speedHTML);
+      $('#speed').html(speedHTML);
       var m = Date.now();
 
       addPosition(position, heading, m, speed);
@@ -88,8 +95,8 @@ $(document).ready(function(){
 
     });
 
-    geolocation.on('error', function() {
-      alert('geolocation error');
+    geolocation.on('error', function(e) {
+      alert('geolocation error'+ e);
     });
 
     function radToDeg(rad) {
@@ -257,14 +264,6 @@ $(document).ready(function(){
         var rend = {}
         rend.latlngs = routesArr;
         addRoutes(rend);
-
-        // $("#routes").append("\
-        //   <div class=\"item time\">\
-        //     <h4>На время</h4>\
-        //     <h3>Кедровый лог</h3>\
-        //     <h1>17 мин</h1>\
-        //     <button><a onclick=\"start('time')\">Начать</a></button>\
-        //   </div>");
       }
     });
 
@@ -293,23 +292,79 @@ $(document).ready(function(){
 
         map.addLayer(vectorLayerLineFirst);
         countLineRoutes++;
-        console.log(comp);
       }
     }
+    // Logic
+    function heat() {
+      $('.start').hide();
+      $('.route').hide();
+      $('.finish').hide();
+      $('.list').show();
+      $('#kntdr').attr('class', 'short');
+      setTimeout(function() { 
+        $('#blur').addClass('notice-shown');
+        $('.notice').fadeIn(200);
+      }, 500);
+    };
+
+    $('.notice button').click(function() {
+      $('.notice').fadeOut(200);
+      $('#blur').removeClass('notice-shown');
+    });
+
+    function start(routeKind) {
+      $('.list').hide();
+      $('.start').show();
+      window.routeKind = routeKind;
+      $('.start').addClass(routeKind);
+    };
+
+    function route() {
+      $('.start').hide();
+      $('.route').show();
+      $('.route').addClass(routeKind);
+      $('#kntdr').attr('class', 'long');
+      startTimer();
+    };
+
+    function finish() {
+      $('.route').hide();
+      $('.finish').show();
+      $('.finish').addClass(routeKind);
+    };
+
+    function stop() {
+      $('.finish').hide;
+      $('.route').hide;
+      $('.start').hide;
+      heat();
+      
+    };
+    heat();
+
+    $('.start').click(route);
+
+
+    //Photorama
+    setTimeout(function(){
+      frameNumb = 0;
+      $(function () {
+
+          $('.fotorama')
+          .on('fotorama:showend ',
+                  function (e, fotorama) {
+                      var frameNumb = fotorama.activeIndex + 1;
+                      console.log(frameNumb);
+                  }
+              )
+              .fotorama();
+        });
+    }, 500);
 
 });
 
-setTimeout(function(){
-  frameNumb = 0;
-  $(function () {
 
-      $('.fotorama')
-      .on('fotorama:showend ',
-              function (e, fotorama) {
-                  var frameNumb = fotorama.activeIndex + 1;
-                  console.log(frameNumb);
-              }
-          )
-          .fotorama();
-    });
-}, 500);
+
+
+
+

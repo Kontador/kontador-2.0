@@ -77,13 +77,16 @@ $(document).ready(function(){
       console.log('Уважаемый пользователь! Уведомляем о том, что на данный момент произошло изменение позиции! Спасибо за понимание!' + position);
 
       // -----  Speed.
-      var speedHTML = Math.floor((speed * 3.6).toFixed(1));
+      var speedHTML = (speed * 3.6).toFixed(1);
       if(speedHTML >= 10){
-        speedHTML = speedHTML.slice(-1);
+        speedHTML = speedHTML.toString().substr(0, speedHTML.length - 2);
       }
+      var speedHTML = speedHTML.toString().replace(".", ",");
+      console.log(speedHTML);
       $('#speed').html(speedHTML);
-      var m = Date.now();
 
+
+      var m = Date.now();
       addPosition(position, heading, m, speed);
 
       var coords = positions.getCoordinates();
@@ -94,8 +97,8 @@ $(document).ready(function(){
 
     });
 
-    geolocation.on('error', function() {
-      alert('geolocation error');
+    geolocation.on('error', function(e) {
+      alert('geolocation error'+ e);
     });
 
     function radToDeg(rad) {
@@ -263,14 +266,6 @@ $(document).ready(function(){
         var rend = {}
         rend.latlngs = routesArr;
         addRoutes(rend);
-
-        // $("#routes").append("\
-        //   <div class=\"item time\">\
-        //     <h4>На время</h4>\
-        //     <h3>Кедровый лог</h3>\
-        //     <h1>17 мин</h1>\
-        //     <button><a onclick=\"start('time')\">Начать</a></button>\
-        //   </div>");
       }
     });
 
@@ -302,19 +297,28 @@ $(document).ready(function(){
       }
     }
 
+
+
+    //Photorama
+    setTimeout(function(){
+      frameNumb = 0;
+      $(function () {
+
+          $('.fotorama')
+          .on('fotorama:showend ',
+                  function (e, fotorama) {
+                      var frameNumb = fotorama.activeIndex + 1;
+                      console.log(frameNumb);
+                  }
+              )
+              .fotorama();
+        });
+    }, 500);
+
 });
 
-setTimeout(function(){
-  frameNumb = 0;
-  $(function () {
 
-      $('.fotorama')
-      .on('fotorama:showend ',
-              function (e, fotorama) {
-                  var frameNumb = fotorama.activeIndex + 1;
-                  console.log(frameNumb);
-              }
-          )
-          .fotorama();
-    });
-}, 500);
+
+
+
+
