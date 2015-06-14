@@ -17,8 +17,9 @@ function onDeviceReady() {};
 			layers: [
 				new ol.layer.Tile({
 					source: new ol.source.XYZ({
-						url: 'http://tiles.{a-z}.st.vmp.ru/{z}/{x}/{y}.png',
-						tilePixelRatio: 1,
+						//url: 'http://tiles.{a-z}.st.vmp.ru/{z}/{x}/{y}.png',
+						url: 'http://api.tiles.mapbox.com/v4/vanyaklimenko.iajg5k00/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoidmFueWFrbGltZW5rbyIsImEiOiJVOTRmSUowIn0.kmHbep2kGteMcaAQAlYllA',
+						tilePixelRatio: 2,
 						minZoom: 12,
 						maxZoom: 18
 					}),
@@ -67,16 +68,36 @@ function onDeviceReady() {};
 
 		var deltaMean = 500;
 
-		// listener
+		// Main app
 		geolocation.on('change', function(evt) {
 			var position = geolocation.getPosition();
 			var accuracy = geolocation.getAccuracy();
 			var heading  = geolocation.getHeading() || 0;
-			var speed    = geolocation.getSpeed() || 0; // global
-
-			console.log('Уважаемый пользователь! Уведомляем о том, что на данный момент произошло изменение позиции! Спасибо за понимание!' + position);
+			var speed    = geolocation.getSpeed() || 0;
+			var coords = positions.getCoordinates();
 
 			// -----  Speed.
+			speedometer(speed);
+			// -----  Rasstoyanie do route
+
+
+			var m = Date.now();
+			addPosition(position, heading, m, speed);
+
+			
+			console.log(coords);
+			var len = coords.length;
+			if (len >= 2) {
+				deltaMean = (coords[len - 1][3] - coords[0][3]) / (len - 1);
+			}
+
+		});
+		geolocation.on('error', function() {
+			console.log('geolocation error');
+		});
+
+
+		function speedometer(speed){
 			var speedHTML = (speed * 3.6).toFixed(1);
 			if(speedHTML >= 10){
 				speedHTML = speedHTML.toString().substr(0, speedHTML.length - 2);
@@ -84,22 +105,7 @@ function onDeviceReady() {};
 			var speedHTML = speedHTML.toString().replace(".", ",");
 			console.log(speedHTML);
 			$('#speed').html(speedHTML);
-
-
-			var m = Date.now();
-			addPosition(position, heading, m, speed);
-
-			var coords = positions.getCoordinates();
-			var len = coords.length;
-			if (len >= 2) {
-				deltaMean = (coords[len - 1][3] - coords[0][3]) / (len - 1);
-			}
-
-		});
-
-		geolocation.on('error', function() {
-			console.log('geolocation error');
-		});
+		}
 
 		function radToDeg(rad) {
 			return rad * 360 / (Math.PI * 2);
@@ -180,7 +186,7 @@ function onDeviceReady() {};
 			map.render();
 		}
 
-		geolocate();
+		//geolocate();
 
 		//---------------------------------------------------------------------------------------------------------
 
@@ -251,10 +257,10 @@ function onDeviceReady() {};
 		//---------------------------------------------------------------------------------------------------------
 
 		// parse json and get routes
-
-		$.getJSON( "json/routes.json", function( data ) {
+		function parseRoute(data, id){
+			if(!id) id = 0;
 			// for loop. parsing all routes.
-			for(var i=0; i < data.routes.length; i++){
+			for(var i=id; i < data.routes.length; i++){
 				var item = data.routes[i][i+1][0];
 
 				var kind = {
@@ -287,6 +293,9 @@ function onDeviceReady() {};
 				rend.latlngs = routesArr;
 				addRoutes(rend);
 			}
+		}
+		$.getJSON( "json/routes.json", function( data ) {
+			parseRoute(data)
 		});
 
 		var countLineRoutes = 0;
@@ -317,18 +326,26 @@ function onDeviceReady() {};
 			}
 		}
 
+		function delRoutesFromMap() {
+			map.removeLayer(vectorLayerLineFirst);
+			countLineRoutes = 0;
+		}
+
+		
 		setTimeout(function(){
 			frameNumb = 0;
 			$(function () {
-					$('.fotorama')
-					.on('fotorama:showend ',
-									function (e, fotorama) {
-											var frameNumb = fotorama.activeIndex + 1;
-											console.log(frameNumb);
-									}
-							)
-							.fotorama();
-				});
+				$('.fotorama')
+				.on('fotorama:showend ',
+						function (e, fotorama) {
+							var frameNumb = fotorama.activeIndex;
+							$.getJSON( "json/routes.json", function( data ) {
+								delRoutesFromMap();
+								parseRoute(data, frameNumb);
+							});
+							console.log(frameNumb);
+						}).fotorama();
+			});
 		}, 500);
 
 		function heat() {
