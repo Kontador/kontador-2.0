@@ -1,25 +1,10 @@
-<<<<<<< HEAD
-    // Logic
     function heat() {
-      $('.start').hide();
-      $('.route').hide();
-      $('.finish').hide();
-      $('.list').show();
-      $('#kntdr').attr('class', 'short');
-      setTimeout(function() { 
-        $('#blur').addClass('notice-shown');
-        $('.notice').fadeIn(200);
-      }, 500);
+    	$('.start').hide();
+    	$('.route').hide();
+    	$('.finish').hide();
+    	$('.list').show();
+    	$('#kntdr').attr('class', 'short');
     };
-=======
-function heat() {
-	$('.start').hide();
-	$('.route').hide();
-	$('.finish').hide();
-	$('.list').show();
-	$('#kntdr').attr('class', 'short');
-};
->>>>>>> origin/master
 
     $('.notice button').click(function() {
       $('.notice').fadeOut(200);

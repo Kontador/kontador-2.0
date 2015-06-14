@@ -2,7 +2,7 @@ $(function(){
   document.addEventListener("deviceready", onDeviceReady, false);
 })
 
-// function onDeviceReady() {
+function onDeviceReady() {};
 
     //---------------------------------------------------------------------------------------------------------
 
@@ -97,13 +97,8 @@ $(function(){
 
     });
 
-<<<<<<< HEAD
-    geolocation.on('error', function(e) {
-      alert('geolocation error'+ e);
-=======
     geolocation.on('error', function() {
       console.log('geolocation error');
->>>>>>> origin/master
     });
 
     function radToDeg(rad) {
@@ -317,10 +312,7 @@ $(function(){
         });
     }, 500);
 
-<<<<<<< HEAD
-
-
-    //Photorama
+    // fotorama
     setTimeout(function(){
       frameNumb = 0;
       $(function () {
@@ -335,14 +327,3 @@ $(function(){
               .fotorama();
         });
     }, 500);
-
-});
-
-
-
-
-
-
-=======
-// });
->>>>>>> origin/master
