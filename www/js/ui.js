@@ -39,14 +39,3 @@ $(document).ready(heat());
 
 $('.start').click(route);
 
-var frameNumb = '0';
-
-$(function () {
-    $('.fotorama')
-		.on('fotorama:showend ',
-            function (e, fotorama) {
-			  var frameNumb = fotorama.activeIndex;
-            }
-        )
-        .fotorama();
-  });

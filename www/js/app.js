@@ -170,7 +170,8 @@ $(document).ready(function(){
 
     function showAlert() {
         navigator.notification.alert(
-            'Уделяйте особое внимание обстановке на дорогах. Маршрут может оказаться неточным, на нём могут отсутствовать тротураы и пешеходные переходы.',
+            'Уделяйте особое внимание обстановке на дорогах. Маршрут может оказаться неточным,\
+             на нём могут отсутствовать тротураы и пешеходные переходы.',
             alertDismiss,
             'ПРЕДУПРЕЖДЕНИЕ БЕЗОПАСНОСТИ',
             'Продолжить'
@@ -229,12 +230,30 @@ $(document).ready(function(){
     // parse json and get routes
 
     $.getJSON( "json/routes.json", function( data ) {
-      // Парсим все маршруты:
+      // for loop. parsing all routes.
       for(var i=0; i < data.routes.length; i++){
         var item = data.routes[i][i+1][0];
-        $("#item"+i).html(item.name);
-        console.log(i+1 + " маршрут serializing");
-        // Парсим все кординаты из одного маршрута:
+
+        var kind = {
+          'dist': {
+            css: "dist",
+            header: "На дистанцию"
+          },
+          'time': {
+            css: "time",
+            header: "На время"
+          }
+        }
+        $("#routes").append("\
+          <div class=\"item dist\">\
+            <h4>"+ kind[item.kind].header +"</h4>\
+            <h3 id=\"item1\">"+ item.name +"</h3>\
+            <h1>" + item.length +" км</h1>\
+          <button><a onclick=\"start('dist')\">Начать</a></button>\
+          ");
+
+        console.log(i+1 + " route serializing");
+        // parsing 
         var routesArr = new Array();
         for(var e=0; e < item.latlngs.length; e++){
           routesArr.push(item.latlngs[e]);
@@ -242,6 +261,14 @@ $(document).ready(function(){
         var rend = {}
         rend.latlngs = routesArr;
         addRoutes(rend);
+
+        // $("#routes").append("\
+        //   <div class=\"item time\">\
+        //     <h4>На время</h4>\
+        //     <h3>Кедровый лог</h3>\
+        //     <h1>17 мин</h1>\
+        //     <button><a onclick=\"start('time')\">Начать</a></button>\
+        //   </div>");
       }
     });
 
@@ -275,3 +302,22 @@ $(document).ready(function(){
     }
 
 });
+
+
+
+
+setTimeout(function(){
+  frameNumb = 0;
+  $(function () {
+      
+      $('.fotorama')
+      .on('fotorama:showend ',
+              function (e, fotorama) {
+                  var frameNumb = fotorama.activeIndex + 1;
+                  console.log(frameNumb);
+              }
+          )
+          .fotorama();
+    });
+}, 500);
+  
