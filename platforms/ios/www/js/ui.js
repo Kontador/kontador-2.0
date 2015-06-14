@@ -4,10 +4,6 @@ function heat() {
 	$('.finish').hide();
 	$('.list').show();
 	$('#kntdr').attr('class', 'short');
-	setTimeout(function() {	
-    $('#blur').addClass('notice-shown');
-    $('.notice').fadeIn(200);
-  }, 500);
 };
 
 $('.notice button').click(function() {

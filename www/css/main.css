@@ -97,7 +97,7 @@ canvas {
 }
 
 #blur {
-    transition: -webkit-filter .2s ease-in-out;
+    transition: -webkit-filter .2s ease-out;
 }
 
 .short {
@@ -120,7 +120,6 @@ canvas {
 }
 
 .notice {
-    display: none;
     position: absolute;
     top: 0;
     left: 0;
@@ -175,9 +174,9 @@ canvas {
 
 h1 {
     font-weight: 100;
-    font-size: 96px;
+    font-size: 94px;
     margin: 10px 0 0;
-    line-height: 96px;
+    line-height: 94px;
 }
 
 .item h1 {

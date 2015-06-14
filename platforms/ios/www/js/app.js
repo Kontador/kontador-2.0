@@ -1,7 +1,8 @@
-document.addEventListener("deviceready", onDeviceReady, false);
-function onDeviceReady(){}
+$(function(){
+  document.addEventListener("deviceready", onDeviceReady, false);
+})
 
-$(document).ready(function(){
+// function onDeviceReady() {
 
     //---------------------------------------------------------------------------------------------------------
 
@@ -10,7 +11,6 @@ $(document).ready(function(){
     var view = new ol.View({
       center: ol.proj.transform([73.39646100997925, 61.253983635981406], 'EPSG:4326', 'EPSG:3857'),
     	zoom: 16
-    	
     });
      
     var map = new ol.Map({
@@ -28,9 +28,12 @@ $(document).ready(function(){
       view: view,
       interactions: ol.interaction.defaults({
           keyboard: false,
-          DragAndDrop: false,
-          altShiftDragRotate:false,
-          pinchRotate:true
+          dragAndDrop: false,
+          dragRotate: false,
+          dragPan: false,
+          altShiftDragRotate: false,
+          pinchRotate: false,
+          pinchZoom: true
       })
     });
 
@@ -74,8 +77,11 @@ $(document).ready(function(){
       console.log('Уважаемый пользователь! Уведомляем о том, что на данный момент произошло изменение позиции! Спасибо за понимание!' + position);
 
       // -----  Speed.
-
-      $('#speed').html((speed * 3.6).toFixed(1).slice(-1));
+      var speedHTML = Math.floor((speed * 3.6).toFixed(1));
+      if(speedHTML >= 10){
+        speedHTML = speedHTML.slice(-1);
+      }
+      $('#speed').html(speedHTML);
       var m = Date.now();
 
       addPosition(position, heading, m, speed);
@@ -89,7 +95,7 @@ $(document).ready(function(){
     });
 
     geolocation.on('error', function() {
-      alert('geolocation error');
+      console.log('geolocation error');
     });
 
     function radToDeg(rad) {
@@ -293,23 +299,22 @@ $(document).ready(function(){
 
         map.addLayer(vectorLayerLineFirst);
         countLineRoutes++;
-        console.log(comp);
       }
     }
+    
+    setTimeout(function(){
+      frameNumb = 0;
+      $(function () {
+    
+          $('.fotorama')
+          .on('fotorama:showend ',
+                  function (e, fotorama) {
+                      var frameNumb = fotorama.activeIndex + 1;
+                      console.log(frameNumb);
+                  }
+              )
+              .fotorama();
+        });
+    }, 500);
 
-});
-
-setTimeout(function(){
-  frameNumb = 0;
-  $(function () {
-
-      $('.fotorama')
-      .on('fotorama:showend ',
-              function (e, fotorama) {
-                  var frameNumb = fotorama.activeIndex + 1;
-                  console.log(frameNumb);
-              }
-          )
-          .fotorama();
-    });
-}, 500);
+// });
