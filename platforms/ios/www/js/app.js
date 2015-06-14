@@ -66,12 +66,29 @@ $(document).ready(function(){
     geolocation.on('change', function(evt) {
       var position = geolocation.getPosition();
       var accuracy = geolocation.getAccuracy();
-      var heading = geolocation.getHeading() || 0;
-      var speed = geolocation.getSpeed() || 0;
+      var heading  = geolocation.getHeading() || 0;
+      var speed    = geolocation.getSpeed() || 0; // GLOBAL VARIABLE
+
+
+
+      // -----  Speed.
+      clearInterval(speedometr);
+      speedometr = setInterval(function(){
+          var speed = geolocation.getSpeed() || 0; // GLOBAL VARIABLE
+          $("#speed").html(speed);
+          console.log("Speed: "+ speed);
+      }, 2000);
+
+
+      if(speed > 2) {
+            geolocation.setTracking(true); // Start position tracking
+      } else {
+          geolocation.setTracking(false);
+      }
+
       var m = Date.now();
 
       console.log(speed);
-
       addPosition(position, heading, m, speed);
 
       var coords = positions.getCoordinates();
@@ -160,13 +177,7 @@ $(document).ready(function(){
 
     // TADA
     function geolocate() {
-
-      if(speed > 2) {
-            geolocation.setTracking(true); // Start position tracking
-      }
-        else {
-            geolocation.setTracking(false);
-        }
+      geolocation.setTracking(true); // Start position tracking
       map.on('postcompose', render);
       map.render();
     }
@@ -239,6 +250,8 @@ $(document).ready(function(){
             header: "На время"
           }
         }
+        item.length = item.length.toString().slice(0, -1);
+        item.length = item.length.replace(".", ",");
         $("#routes").append("\
           <div class=\"item dist\">\
             <h4>"+ kind[item.kind].header +"</h4>\
@@ -297,9 +310,6 @@ $(document).ready(function(){
     }
 
 });
-
-
-
 
 setTimeout(function(){
   frameNumb = 0;
