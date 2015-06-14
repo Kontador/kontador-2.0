@@ -84,10 +84,6 @@ canvas {
     fill: #7ed321;
 }
 
-#blur {
-    transition: -webkit-filter .2s ease-in;
-}
-
 #kntdr {
     position: fixed;
     background: rgba(255, 252, 250, 0.95);
@@ -151,6 +147,7 @@ canvas {
 
 .notice h2 {
     margin-bottom: .5em;
+    line-height: 1.2em;
 }
 
 .notice-shown {
@@ -185,8 +182,8 @@ h1 {
 }
 
 h2 {
-    font-size: 32px;
-    line-height: 32px;
+    font-size: 34px;
+    line-height: 34px;
     font-weight: 300;
     margin: 0;
 }
