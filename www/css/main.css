@@ -23,13 +23,13 @@ sup {
 }
 
 .fotorama__dot {
-    border: 1px solid #999;
-    background: #999;
+    border: 1px solid #ccc;
+    background: #ccc;
 }
 
 .fotorama__nav__frame.fotorama__active .fotorama__dot {
-    background: #000;
-    border-color: #000;
+    background: #333;
+    border-color: #333;
 }
 
 .fotorama__nav--dots .fotorama__nav__frame {
@@ -59,6 +59,7 @@ body {
     width: 100%;
     position: fixed;
     -webkit-font-smoothing: antialiased;
+    -webkit-font-feature-settings: "pnum";
 }
 
 canvas {
