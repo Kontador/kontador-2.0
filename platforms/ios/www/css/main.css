@@ -1,3 +1,13 @@
+@-webkit-keyframes flash {
+  0%, 50%, 100% {
+    opacity: 1;
+  }
+
+  25%, 75% {
+    opacity: .1;
+  }
+}
+
 sup {
     font-weight: 400;
     font-size: 60%;
@@ -36,8 +46,15 @@ sup {
     width: 12px;
 }
 
+.sick {
+    opacity: .3;
+}
+
 * {
     -webkit-tap-highlight-color: rgba(0,0,0,0);
+    transition: opacity .2s ease-in-out;
+    -webkit-outline: none;
+    outline: none;
     margin: 0;
     padding: 0;
 }
@@ -153,6 +170,10 @@ canvas {
     line-height: 1.2em;
 }
 
+.notice button {
+    -webkit-animation: flash 4s infinite linear;
+}
+
 .notice-shown {
     -webkit-filter: blur(10px);
 }
@@ -177,6 +198,11 @@ h1 {
     font-size: 94px;
     margin: 10px 0 0;
     line-height: 94px;
+}
+
+h1 small {
+  font-size: 60%;
+  font-weight: 300;
 }
 
 .item h1 {
@@ -214,7 +240,7 @@ button {
     font-family: -apple-system-font, 'Helvetica Neue', sans-serif;
     background: 0;
     border: 0;
-    font-weight: 400;
+    font-weight: 500;
     padding: 20px 80px 40px;
     cursor: pointer;
 }

@@ -12,7 +12,7 @@ function onDeviceReady() {};
       center: ol.proj.transform([73.39646100997925, 61.253983635981406], 'EPSG:4326', 'EPSG:3857'),
     	zoom: 16
     });
-     
+
     var map = new ol.Map({
       layers: [
         new ol.layer.Tile({
@@ -190,31 +190,39 @@ function onDeviceReady() {};
     function resetTimer(){
     	secs = 0, mins = 0, hours = 0;
     }
+
     function startTimer(){
     	tick = setInterval(function(){
     		secs += 1;
+
     		if(secs < 10){
     			hsecs = ':0' + secs;
-    		} else if(secs == 60){
+    		}
+
+    		else if(secs == 60){
     			mins += 1;
     			secs = 0;
     			hsecs = ':0' + secs;
     		}
+
     		else
     			hsecs = ':' + secs;
 
     		if(mins < 10)
     			hmins = '0' + mins;
+
     		else if(mins == 60){
     			hours += 1;
     			mins = 0;
     			hmins = '0' + mins;
     		}
+
     		else
     			hmins = mins
 
     		if(hours == 0)
     			hhours = '';
+
     		else {
     			hhours = hours + ':';
     			hsecs = "<sup>" + hsecs + "</sup>";
@@ -223,9 +231,17 @@ function onDeviceReady() {};
 
     		$("#timer").html(hhours + hmins + hsecs);
     	}, 1000);
+
+        $('h1, h4, h2').removeClass('sick');
+        $('#stopTimer').show;
+        $('#startTimer').hide;
     }
+
     function stopTimer(){
     	clearInterval(tick);
+    	$('h1, h4, h2').addClass('sick');
+        $('#stopTimer').hide;
+        $('#startTimer').show;
     }
 
     //---------------------------------------------------------------------------------------------------------
@@ -296,11 +312,10 @@ function onDeviceReady() {};
         countLineRoutes++;
       }
     }
-    
+
     setTimeout(function(){
       frameNumb = 0;
       $(function () {
-    
           $('.fotorama')
           .on('fotorama:showend ',
                   function (e, fotorama) {
@@ -312,18 +327,47 @@ function onDeviceReady() {};
         });
     }, 500);
 
-    // fotorama
-    setTimeout(function(){
-      frameNumb = 0;
-      $(function () {
+    function heat() {
+    	$('.start').hide();
+    	$('.route').hide();
+    	$('.finish').hide();
+    	$('.list').show();
+    	$('#kntdr').attr('class', 'short');
+    };
 
-          $('.fotorama')
-          .on('fotorama:showend ',
-                  function (e, fotorama) {
-                      var frameNumb = fotorama.activeIndex + 1;
-                      console.log(frameNumb);
-                  }
-              )
-              .fotorama();
-        });
-    }, 500);
+    $('.notice button').click(function() {
+      $('.notice').fadeOut(200);
+      $('#blur').removeClass('notice-shown');
+    });
+
+    function start(routeKind) {
+      $('.list').hide();
+      $('.start').show();
+      window.routeKind = routeKind;
+      $('.start').addClass(routeKind);
+    };
+
+    function route() {
+      $('.start').hide();
+      $('.route').show();
+      $('.route').addClass(routeKind);
+      $('#kntdr').attr('class', 'long');
+      startTimer();
+    };
+
+    function finish() {
+      $('.route').hide();
+      $('.finish').show();
+      $('.finish').addClass(routeKind);
+    };
+
+    function stop() {
+      $('.finish').hide;
+      $('.route').hide;
+      $('.start').hide;
+      heat();
+
+    };
+    heat();
+
+    $('.start').click(route);

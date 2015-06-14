@@ -30,13 +30,10 @@
     <string>0.0.1</string>
     <key>LSRequiresIPhoneOS</key>
     <true/>
-<<<<<<< HEAD
-=======
     <key>NSLocationUsageDescription</key>
     <string>Чтобы счётчик работал, а маршруты считались.</string>
     <key>NSLocationWhenInUseUsageDescription</key>
     <string></string>
->>>>>>> origin/master
     <key>NSMainNibFile</key>
     <string></string>
     <key>UIBackgroundModes</key>
@@ -64,10 +61,7 @@
       <string>UIInterfaceOrientationPortraitUpsideDown</string>
       <string>UIInterfaceOrientationLandscapeRight</string>
     </array>
-<<<<<<< HEAD
-=======
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
->>>>>>> origin/master
   </dict>
 </plist>

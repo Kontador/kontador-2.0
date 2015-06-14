@@ -2,7 +2,7 @@ $(function(){
   document.addEventListener("deviceready", onDeviceReady, false);
 })
 
-// function onDeviceReady() {
+function onDeviceReady() {};
 
     //---------------------------------------------------------------------------------------------------------
 
@@ -77,17 +77,16 @@ $(function(){
       console.log('Уважаемый пользователь! Уведомляем о том, что на данный момент произошло изменение позиции! Спасибо за понимание!' + position);
 
       // -----  Speed.
-      var speedHTML = Math.floor((speed * 3.6).toFixed(1));
+      var speedHTML = (speed * 3.6).toFixed(1);
       if(speedHTML >= 10){
-        speedHTML = speedHTML.slice(-1);
+        speedHTML = speedHTML.toString().substr(0, speedHTML.length - 2);
       }
-<<<<<<< HEAD
+      var speedHTML = speedHTML.toString().replace(".", ",");
       console.log(speedHTML);
-=======
->>>>>>> origin/master
       $('#speed').html(speedHTML);
-      var m = Date.now();
 
+
+      var m = Date.now();
       addPosition(position, heading, m, speed);
 
       var coords = positions.getCoordinates();
@@ -98,13 +97,8 @@ $(function(){
 
     });
 
-<<<<<<< HEAD
-    geolocation.on('error', function(e) {
-      alert('geolocation error'+ e);
-=======
     geolocation.on('error', function() {
       console.log('geolocation error');
->>>>>>> origin/master
     });
 
     function radToDeg(rad) {
@@ -196,31 +190,39 @@ $(function(){
     function resetTimer(){
     	secs = 0, mins = 0, hours = 0;
     }
+    
     function startTimer(){
     	tick = setInterval(function(){
     		secs += 1;
+    		
     		if(secs < 10){
     			hsecs = ':0' + secs;
-    		} else if(secs == 60){
+    		} 
+    		
+    		else if(secs == 60){
     			mins += 1;
     			secs = 0;
     			hsecs = ':0' + secs;
     		}
+    		
     		else
     			hsecs = ':' + secs;
 
     		if(mins < 10)
     			hmins = '0' + mins;
+    			
     		else if(mins == 60){
     			hours += 1;
     			mins = 0;
     			hmins = '0' + mins;
     		}
+    		
     		else
     			hmins = mins
 
     		if(hours == 0)
     			hhours = '';
+    			
     		else {
     			hhours = hours + ':';
     			hsecs = "<sup>" + hsecs + "</sup>";
@@ -230,8 +232,12 @@ $(function(){
     		$("#timer").html(hhours + hmins + hsecs);
     	}, 1000);
     }
+    
     function stopTimer(){
     	clearInterval(tick);
+    	$('h1, h4, .take-three, button').toggleClass('sick');
+    	$('stop').fadeToggle();
+    	$('stop').attr('onclick="stop()"');
     }
 
     //---------------------------------------------------------------------------------------------------------
@@ -302,18 +308,45 @@ $(function(){
         countLineRoutes++;
       }
     }
-<<<<<<< HEAD
-    // Logic
-    function heat() {
-      $('.start').hide();
-      $('.route').hide();
-      $('.finish').hide();
-      $('.list').show();
-      $('#kntdr').attr('class', 'short');
-      setTimeout(function() { 
-        $('#blur').addClass('notice-shown');
-        $('.notice').fadeIn(200);
-      }, 500);
+    
+    setTimeout(function(){
+      frameNumb = 0;
+      $(function () {
+    
+          $('.fotorama')
+          .on('fotorama:showend ',
+                  function (e, fotorama) {
+                      var frameNumb = fotorama.activeIndex + 1;
+                      console.log(frameNumb);
+                  }
+              )
+              .fotorama();
+        });
+    }, 500);
+
+    // fotorama
+    setTimeout(function(){
+      frameNumb = 0;
+      $(function () {
+
+          $('.fotorama')
+          .on('fotorama:showend ',
+                  function (e, fotorama) {
+                      var frameNumb = fotorama.activeIndex + 1;
+                      console.log(frameNumb);
+                  }
+              )
+              .fotorama();
+        });
+    }, 500);
+
+
+        function heat() {
+    	$('.start').hide();
+    	$('.route').hide();
+    	$('.finish').hide();
+    	$('.list').show();
+    	$('#kntdr').attr('class', 'short');
     };
 
     $('.notice button').click(function() {
@@ -352,39 +385,3 @@ $(function(){
     heat();
 
     $('.start').click(route);
-
-
-    //Photorama
-    setTimeout(function(){
-      frameNumb = 0;
-      $(function () {
-
-=======
-    
-    setTimeout(function(){
-      frameNumb = 0;
-      $(function () {
-    
->>>>>>> origin/master
-          $('.fotorama')
-          .on('fotorama:showend ',
-                  function (e, fotorama) {
-                      var frameNumb = fotorama.activeIndex + 1;
-                      console.log(frameNumb);
-                  }
-              )
-              .fotorama();
-        });
-    }, 500);
-
-<<<<<<< HEAD
-});
-
-
-
-
-
-
-=======
-// });
->>>>>>> origin/master
