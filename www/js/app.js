@@ -58,6 +58,8 @@ $(document).ready(function(){
       }
     }));
 
+    var speed = '';
+
     var deltaMean = 500;
 
     // listener
@@ -67,6 +69,8 @@ $(document).ready(function(){
       var heading = geolocation.getHeading() || 0;
       var speed = geolocation.getSpeed() || 0;
       var m = Date.now();
+
+      console.log(speed);
 
       addPosition(position, heading, m, speed);
 
@@ -157,8 +161,12 @@ $(document).ready(function(){
     // TADA
     function geolocate() {
 
-      geolocation.setTracking(true); // Start position tracking
-
+      if(speed > 2) {
+            geolocation.setTracking(true); // Start position tracking
+      }
+        else {
+            geolocation.setTracking(false);
+        }
       map.on('postcompose', render);
       map.render();
     }
@@ -240,7 +248,7 @@ $(document).ready(function(){
           ");
 
         console.log(i+1 + " route serializing");
-        // parsing 
+        // parsing
         var routesArr = new Array();
         for(var e=0; e < item.latlngs.length; e++){
           routesArr.push(item.latlngs[e]);
@@ -296,7 +304,7 @@ $(document).ready(function(){
 setTimeout(function(){
   frameNumb = 0;
   $(function () {
-      
+
       $('.fotorama')
       .on('fotorama:showend ',
               function (e, fotorama) {
@@ -307,4 +315,3 @@ setTimeout(function(){
           .fotorama();
     });
 }, 500);
-  
