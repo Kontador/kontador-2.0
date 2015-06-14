@@ -6,7 +6,14 @@ function heat() {
 	$('.finish').hide();
 	$('.list').show();
 	$('#kntdr').attr('class', 'short');
+	$('#blur').addClass('notice-shown');
+	$('.notice').show();
 };
+
+$('.notice button').click(function() {
+	$('.notice').fadeOut(100, 'swing');
+	$('#blur').removeClass('notice-shown');
+});
 
 function start(routeKind) {
 	$('.list').hide();
@@ -38,15 +45,3 @@ function stop() {
 $(document).ready(heat());
 
 $('.start').click(route);
-
-var frameNumb = '0';
-
-$(function () {
-    $('.fotorama')
-		.on('fotorama:showend ',
-            function (e, fotorama) {
-			  var frameNumb = fotorama.activeIndex;
-            }
-        )
-        .fotorama();
-  });

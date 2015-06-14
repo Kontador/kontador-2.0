@@ -51,7 +51,8 @@ body {
     -webkit-touch-callout: none;
     -webkit-text-size-adjust: none;
     -webkit-user-select: none;
-    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-family: -apple-system-font, 'Helvetica Neue', sans-serif;
+    line-height: 1.4em;
     height: 100%;
     margin: 0;
     padding: 0;
@@ -59,16 +60,17 @@ body {
     position: fixed;
     -webkit-font-smoothing: antialiased;
 }
+
 canvas {
     -webkit-filter: saturate(0.4);
 }
 
-.dist h1, .dist button, .start.dist *, .dist .share path {
+.dist h1, .safety button, .dist button, .start.dist *, .dist .share path {
     color: #ff4e00;
     stroke: #ff4e00;
 }
 
-.time h1, .time button, .start.time *, .time .share path {
+.time h1, .info button, .time button, .start.time *, .time .share path {
     color: #7ed321;
     stroke: #7ed321;
 }
@@ -112,6 +114,48 @@ canvas {
     margin-top: 18px;
 }
 
+.notice {
+    display: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 4;
+    text-align: center;
+    color: #fff;
+    background: rgba(0, 0, 0, .8);
+}
+
+.safety figure {
+    font-weight: 100;
+    font-size: 108px;
+    margin: 100px 0 60px;
+}
+
+.info figure {
+    font-weight: 100;
+    font-size: 148px;
+    margin: 100px 0 70px;
+}
+
+.notice p {
+    margin: 0 auto 5px;
+    max-width: 320px;
+}
+
+.notice h2 {
+    margin-bottom: .5em;
+}
+
+.notice-shown {
+    -webkit-filter: blur(10px);
+}
+
+.notice-shown .notice {
+    display: block;
+}
+
 .fotorama {
     height: 100%;
     width: 100%;
@@ -142,8 +186,7 @@ h2 {
     margin: 0;
 }
 
-h3,
-button {
+h3, button {
     font-weight: 400;
     font-size: 18px;
     margin: 0 0 0.3em 0;
@@ -163,10 +206,12 @@ h4 {
 
 button {
     -webkit-appearance: none;
+    font-family: -apple-system-font, 'Helvetica Neue', sans-serif;
     background: 0;
     border: 0;
     font-weight: 400;
     padding: 20px;
+    cursor: pointer;
 }
 
 button.share {

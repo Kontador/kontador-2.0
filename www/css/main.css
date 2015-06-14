@@ -206,6 +206,7 @@ h4 {
 
 button {
     -webkit-appearance: none;
+    font-family: -apple-system-font, 'Helvetica Neue', sans-serif;
     background: 0;
     border: 0;
     font-weight: 400;
