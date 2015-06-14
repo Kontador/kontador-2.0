@@ -22,6 +22,7 @@ sup {
     top: 0;
     left: 0;
 }
+
 .ol-attribution,
 .ol-zoom {
     display: none;
@@ -195,14 +196,9 @@ canvas {
 
 h1 {
     font-weight: 100;
-    font-size: 94px;
+    font-size: 90px;
     margin: 10px 0 0;
-    line-height: 94px;
-}
-
-h1 small {
-  font-size: 60%;
-  font-weight: 300;
+    line-height: 90px;
 }
 
 .item h1 {

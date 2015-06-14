@@ -9,6 +9,8 @@
 
 	<meta name="viewport" content="initial-scale=1.0, user-scalable=no, width=device-width">
 
+	<script type="text/javascript" src="cordova.js"></script>
+
 	<link rel="stylesheet" href="css/fotorama.css" type="text/css">
 	<link rel="stylesheet" href="css/main.css" type="text/css">
 	<title>Kontador</title>
@@ -40,7 +42,7 @@
 
 			<div class="inner route">
 				<h4 id="item2">На дистанцию</h4>
-				<h1>0,0 <small>км</small></h1>
+				<h1>22,8 км</h1>
 
 				<div class="take-three">
 					<div class="col">
@@ -57,19 +59,27 @@
 					</div>
 				</div>
 
-				<button id="stopTimer" onclick="stopTimer()">
-					<a onlick="finish()">
+				<button id="stopTimer">
 					<svg width="20px" height="28px" viewBox="0 0 27 38" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
 						<defs></defs>
-						<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
-							<g id="Counter" sketch:type="MSArtboardGroup" transform="translate(-303.000000, -545.000000)">
-								<g id="Text-block-—-Menu-1" sketch:type="MSLayerGroup" transform="translate(1.000000, 58.000000)">
-									<path d="M302.025395,487.872 L302.025395,525 L310.189395,525 L310.189395,487.872 L302.025395,487.872 Z M320.470515,487.872 L320.470515,525 L328.634515,525 L328.634515,487.872 L320.470515,487.872 Z" id="2-км" sketch:type="MSShapeGroup"></path>
+						<g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+							<g transform="translate(-303.000000, -545.000000)">
+								<g transform="translate(1.000000, 58.000000)">
+									<path d="M302.025395,487.872 L302.025395,525 L310.189395,525 L310.189395,487.872 L302.025395,487.872 Z M320.470515,487.872 L320.470515,525 L328.634515,525 L328.634515,487.872 L320.470515,487.872 Z"></path>
 								</g>
 							</g>
 						</g>
 					</svg>
-					</a>
+				</button>
+				<button id="startTimer" style="display:none">
+					<svg width="28px" height="28px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+					    <defs></defs>
+					    <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+					        <g transform="translate(0.000000, -1.000000)" fill="#D8D8D8">
+					            <path d="M10,1 L20,21 L0,21 L10,1 Z"  transform="translate(10.000000, 11.000000) rotate(90.000000) translate(-10.000000, -11.000000) "></path>
+					        </g>
+					    </g>
+					</svg>
 				</button>
 			</div>
 
@@ -111,9 +121,6 @@
 		<img id="location-marker" />
 		<div id="map"></div>
 	</div>
-
-	<script type="text/javascript" src="cordova.js"></script>
-
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/fotorama.js"></script>
 	<script type="text/javascript" src="js/ol.js"></script>
