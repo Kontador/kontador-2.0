@@ -66,20 +66,27 @@ $(document).ready(function(){
     geolocation.on('change', function(evt) {
       var position = geolocation.getPosition();
       var accuracy = geolocation.getAccuracy();
-      var heading = geolocation.getHeading() || 0;
-      var speed = geolocation.getSpeed() || 0;
+      var heading  = geolocation.getHeading() || 0;
+      var speed    = geolocation.getSpeed() || 0; // GLOBAL VARIABLE
+
+
+      // -----  Speed.
+      speedometr = setInterval(function(){
+          var speed = geolocation.getSpeed() || 0; // GLOBAL VARIABLE
+          $("#speed").html(speed);
+          console.log("Speed: "+ speed);
+      }, 2000);
+
 
       if(speed > 2) {
             geolocation.setTracking(true); // Start position tracking
-      }
-      else {
+      } else {
           geolocation.setTracking(false);
       }
 
       var m = Date.now();
 
       console.log(speed);
-
       addPosition(position, heading, m, speed);
 
       var coords = positions.getCoordinates();
@@ -301,9 +308,6 @@ $(document).ready(function(){
     }
 
 });
-
-
-
 
 setTimeout(function(){
   frameNumb = 0;
