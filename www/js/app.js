@@ -289,8 +289,17 @@ $.getJSON( "json/routes.json", function( data ) {
 	}
 });
 
+
 var countLineRoutes = 0;
-var vectorLayerLineFirst = new ol.layer.Vector({});
+var vectorLayerLineFirst = new ol.layer.Vector({
+    style:
+        new ol.style.Style({
+            stroke: new ol.style.Stroke({
+                color: '#00A5FF',
+                width: 2
+            })
+        })
+    });
 
 function addRoutes(coord) {
 	if (countLineRoutes == 0) {
