@@ -72,7 +72,6 @@ $(document).ready(function(){
 
 
       // -----  Speed.
-      clearInterval(speedometr);
       speedometr = setInterval(function(){
           var speed = geolocation.getSpeed() || 0; // GLOBAL VARIABLE
           $("#speed").html(speed);
