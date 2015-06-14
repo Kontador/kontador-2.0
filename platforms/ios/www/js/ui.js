@@ -1,17 +1,17 @@
-var routeKind;
-
 function heat() {
 	$('.start').hide();
 	$('.route').hide();
 	$('.finish').hide();
 	$('.list').show();
 	$('#kntdr').attr('class', 'short');
-	$('#blur').addClass('notice-shown');
-	$('.notice').show();
+	setTimeout(function() {	
+    $('#blur').addClass('notice-shown');
+    $('.notice').fadeIn(200);
+  }, 500);
 };
 
 $('.notice button').click(function() {
-	$('.notice').fadeOut(100, 'swing');
+	$('.notice').fadeOut(200);
 	$('#blur').removeClass('notice-shown');
 });
 
@@ -27,6 +27,7 @@ function route() {
 	$('.route').show();
 	$('.route').addClass(routeKind);
 	$('#kntdr').attr('class', 'long');
+  startTimer();
 };
 
 function finish() {

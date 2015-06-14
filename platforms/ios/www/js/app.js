@@ -8,10 +8,11 @@ $(document).ready(function(){
     // initialize ol
 
     var view = new ol.View({
-    	center: ol.proj.transform([73.241, 61.143], 'EPSG:4326', 'EPSG:3857'),
+      center: ol.proj.transform([73.39646100997925, 61.253983635981406], 'EPSG:4326', 'EPSG:3857'),
     	zoom: 16
+    	
     });
-
+     
     var map = new ol.Map({
       layers: [
         new ol.layer.Tile({
@@ -59,6 +60,7 @@ $(document).ready(function(){
     }));
 
     var speed = '';
+    var position = '';
 
     var deltaMean = 500;
 
@@ -67,28 +69,15 @@ $(document).ready(function(){
       var position = geolocation.getPosition();
       var accuracy = geolocation.getAccuracy();
       var heading  = geolocation.getHeading() || 0;
-      var speed    = geolocation.getSpeed() || 0; // GLOBAL VARIABLE
+      var speed    = geolocation.getSpeed() || 0; // global
 
-
+      console.log('Уважаемый пользователь! Уведомляем о том, что на данный момент произошло изменение позиции! Спасибо за понимание!' + position);
 
       // -----  Speed.
-      clearInterval(speedometr);
-      speedometr = setInterval(function(){
-          var speed = geolocation.getSpeed() || 0; // GLOBAL VARIABLE
-          $("#speed").html(speed);
-          console.log("Speed: "+ speed);
-      }, 2000);
 
-
-      if(speed > 2) {
-            geolocation.setTracking(true); // Start position tracking
-      } else {
-          geolocation.setTracking(false);
-      }
-
+      $('#speed').html((speed * 3.6).toFixed(1).slice(-1));
       var m = Date.now();
 
-      console.log(speed);
       addPosition(position, heading, m, speed);
 
       var coords = positions.getCoordinates();
@@ -229,7 +218,6 @@ $(document).ready(function(){
     function stopTimer(){
     	clearInterval(tick);
     }
-    startTimer();
 
     //---------------------------------------------------------------------------------------------------------
 

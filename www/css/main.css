@@ -59,11 +59,11 @@ body {
     width: 100%;
     position: fixed;
     -webkit-font-smoothing: antialiased;
-    -webkit-font-feature-settings: "pnum";
+    -webkit-font-feature-settings: "mnum";
 }
 
 canvas {
-    -webkit-filter: saturate(0.4);
+    -webkit-filter: saturate(0.6);
 }
 
 .dist h1, .safety button, .dist button, .start.dist *, .dist .share path {
@@ -82,6 +82,10 @@ canvas {
 
 .route.time button path {
     fill: #7ed321;
+}
+
+#blur {
+    transition: -webkit-filter .2s ease-in;
 }
 
 #kntdr {
@@ -211,7 +215,7 @@ button {
     background: 0;
     border: 0;
     font-weight: 400;
-    padding: 20px;
+    padding: 20px 80px 40px;
     cursor: pointer;
 }
 

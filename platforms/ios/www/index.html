@@ -16,10 +16,12 @@
 
 <body>
 	<div class="safety notice">
-		<figure>!</figure>
-		<h2>Предупреждение безопасности</h2>
-		<p>Уделяйте особое внимание обстановке на дорогах. Маршрут может оказаться неточным, на нём могут отсутствовать тротуары и пешеходные переходы.</p>
-		<button>Продолжить</button>
+  	<div class="emerge" data-hold="500" data-effect="screw" data-duration="300" data-spin="true" data-spin-color="#fff">
+  		<figure>!</figure>
+  		<h2>Предупреждение безопасности</h2>
+  		<p>Уделяйте особое внимание обстановке на дорогах. Маршрут может оказаться неточным, на нём могут отсутствовать тротуары и пешеходные переходы.</p>
+  		<button class="emerge" data-hold="900" data-duration="600" data-effect="relax">Продолжить</button>
+  	</div>
 	</div>
 	<div id="blur">
 		<div id="kntdr" class="short">
@@ -44,7 +46,7 @@
 
 				<div class="take-three">
 					<div class="col">
-						<h2 id="speed">12</h2>
+						<h2 id="speed">0</h2>
 						<h4>км/ч</h4>
 					</div>
 					<div class="col">
@@ -111,6 +113,9 @@
 		<img id="location-marker" />
 		<div id="map"></div>
 	</div>
+
+  <script type="text/javascript" src="cordova.js"></script>
+  <script type="text/javascript" src="phonegap.js"></script>
 
 	<script type="text/javascript" src="js/jquery.js"></script>
 	<script type="text/javascript" src="js/fotorama.js"></script>
