@@ -68,6 +68,14 @@ $(document).ready(function(){
       var accuracy = geolocation.getAccuracy();
       var heading = geolocation.getHeading() || 0;
       var speed = geolocation.getSpeed() || 0;
+
+      if(speed > 2) {
+            geolocation.setTracking(true); // Start position tracking
+      }
+      else {
+          geolocation.setTracking(false);
+      }
+
       var m = Date.now();
 
       console.log(speed);
@@ -160,13 +168,7 @@ $(document).ready(function(){
 
     // TADA
     function geolocate() {
-
-      if(speed > 2) {
-            geolocation.setTracking(true); // Start position tracking
-      }
-        else {
-            geolocation.setTracking(false);
-        }
+      geolocation.setTracking(true); // Start position tracking
       map.on('postcompose', render);
       map.render();
     }
@@ -239,6 +241,8 @@ $(document).ready(function(){
             header: "На время"
           }
         }
+        item.length = item.length.toString().slice(0, -1);
+        item.length = item.length.replace(".", ",");
         $("#routes").append("\
           <div class=\"item dist\">\
             <h4>"+ kind[item.kind].header +"</h4>\
