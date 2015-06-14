@@ -11,5 +11,12 @@
     </author>
     <content src="index.html" />
     <access origin="*" />
-    <gap:plugin name="org.apache.cordova.dialogs" />
+
+    <plugins>
+        <plugin name="org.apache.cordova.dialogs" />
+    </plugins>
+
+    <feature name="Notification">
+        <param name="ios-package" value="org.apache.cordova.dialogs.Notification" />
+    </feature>
 </widget>

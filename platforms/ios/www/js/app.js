@@ -1,11 +1,17 @@
+document.addEventListener("deviceready", onDeviceReady, false);
+function onDeviceReady(){
+
 $(document).ready(function(){
-    // creating the view
+
+    //---------------------------------------------------------------------------------------------------------
+
+    // initialize ol
+
     var view = new ol.View({
     	center: ol.proj.transform([73.241, 61.143], 'EPSG:4326', 'EPSG:3857'),
     	zoom: 16
     });
 
-    // creating the map
     var map = new ol.Map({
       layers: [
         new ol.layer.Tile({
@@ -27,8 +33,10 @@ $(document).ready(function(){
       })
     });
 
+    //---------------------------------------------------------------------------------------------------------
 
-    // Geolocation marker
+    // marker
+
     var markerEl = document.getElementById('location-marker');
     var marker = new ol.Overlay({
       positioning: 'center-center',
@@ -37,13 +45,10 @@ $(document).ready(function(){
     });
     map.addOverlay(marker);
 
-    // LineString to store the different geolocation positions. This LineString
-    // is time aware.
-    // The Z dimension is actually used to store the rotation (heading).
     var positions = new ol.geom.LineString([],
         /** @type {ol.geom.GeometryLayout} */ ('XYZM'));
 
-    // Geolocation Control
+    // activate fuck
     var geolocation = new ol.Geolocation(/** @type {olx.GeolocationOptions} */ ({
       projection: view.getProjection(),
       trackingOptions: {
@@ -53,9 +58,9 @@ $(document).ready(function(){
       }
     }));
 
-    var deltaMean = 500; // the geolocation sampling period mean in ms
+    var deltaMean = 500;
 
-    // Listen to position changes
+    // listener
     geolocation.on('change', function(evt) {
       var position = geolocation.getPosition();
       var accuracy = geolocation.getAccuracy();
@@ -75,18 +80,15 @@ $(document).ready(function(){
 
     geolocation.on('error', function() {
       alert('geolocation error');
-      // FIXME we should remove the coordinates in positions
     });
 
-    // convert radians to degrees
     function radToDeg(rad) {
       return rad * 360 / (Math.PI * 2);
     }
-    // convert degrees to radians
     function degToRad(deg) {
       return deg * Math.PI * 2 / 360;
     }
-    // modulo for negative values
+    // invert negative
     function mod(n) {
       return ((n % (2 * Math.PI)) + (2 * Math.PI)) % (2 * Math.PI);
     }
@@ -100,8 +102,8 @@ $(document).ready(function(){
       if (prevHeading) {
         var headingDiff = heading - mod(prevHeading);
 
-        // force the rotation change to be less than 180°
-        if (Math.abs(headingDiff) > Math.PI) {
+
+        if (Math.abs(headingDiff) > Math.PI) {      // < 180 ok da
           var sign = (headingDiff >= 0) ? 1 : -1;
           headingDiff = - sign * (2 * Math.PI - Math.abs(headingDiff));
         }
@@ -109,7 +111,6 @@ $(document).ready(function(){
       }
       positions.appendCoordinate([x, y, heading, m]);
 
-      // only keep the 20 last coordinates
       positions.setCoordinates(positions.getCoordinates().slice(-20));
 
       if (heading && speed) {
@@ -120,15 +121,14 @@ $(document).ready(function(){
     }
 
     var previousM = 0;
-    // change center and rotation before render
+
+    // set center
     map.beforeRender(function(map, frameState) {
       if (frameState !== null) {
-        // use sampling period to get a smooth transition
-        var m = frameState.time - deltaMean * 1.5;
+        var m = frameState.time - deltaMean * 1.5;      // get out smoother than ever!
         m = Math.max(m, previousM);
         previousM = m;
-        // interpolate position along positions LineString
-        var c = positions.getCoordinateAtM(m, true);
+        var c = positions.getCoordinateAtM(m, true);    // stackoverflow magic!
         var view = frameState.viewState;
         if (c) {
           view.center = getCenterWithHeading(c, -c[2], view.resolution);
@@ -136,11 +136,9 @@ $(document).ready(function(){
           marker.setPosition(c);
         }
       }
-      return true; // Force animation to continue
+      return true;
     });
 
-    // recenters the view by putting the given coordinates at 3/4 from the top or
-    // the screen
     function getCenterWithHeading(position, rotation, resolution) {
       var size = map.getSize();
       var height = size[1];
@@ -151,12 +149,12 @@ $(document).ready(function(){
       ];
     }
 
-    // postcompose callback
+    // callback
     function render() {
       map.render();
     }
 
-    // geolocate device
+    // TADA
     function geolocate() {
 
       geolocation.setTracking(true); // Start position tracking
@@ -168,9 +166,23 @@ $(document).ready(function(){
     geolocate();
 
 
+    // legal action warning oferta belyaev infostyle
+
+    function showAlert() {
+        navigator.notification.alert(
+            'Уделяйте особое внимание обстановке на дорогах. Маршрут может оказаться неточным, на нём могут отсутствовать тротураы и пешеходные переходы.',
+            alertDismiss,
+            'ПРЕДУПРЕЖДЕНИЕ БЕЗОПАСНОСТИ',
+            'Продолжить'
+        );
+        return false;
+    }
+
+    showAlert();
+
     //---------------------------------------------------------------------------------------------------------
 
-    //---- kontador timer
+    // timer
 
     var hours = 0, mins = 0, secs = 0;
     function resetTimer(){
@@ -215,64 +227,55 @@ $(document).ready(function(){
     }
     startTimer();
 
-// ----- Get Routes
+    //---------------------------------------------------------------------------------------------------------
 
-$.getJSON( "json/routes.json", function( data ) {
-  // Парсим все маршруты:
-  for(var i=0; i < data.routes.length; i++){
-    var item = data.routes[i][i+1][0];
-    $("#item"+i).html(item.name);
-    console.log(i+1 + " маршрут serializing");
-    // Парсим все кординаты из одного маршрута:
-    var routesArr = new Array();
-    for(var e=0; e < item.latlngs.length; e++){
-      routesArr.push(item.latlngs[e]);
-    }
-    var rend = {}
-    rend.latlngs = routesArr;
-    addRoutes(rend);
-  }
-});
+    // parse json and get routes
 
-var countLineRoutes = 0;
-var vectorLayerLineFirst = new ol.layer.Vector({});
-
-
-function addRoutes(coord) {
-  if (countLineRoutes == 0) {
-    var comp = new Array();
-
-    for (var i = 0; i < coord.latlngs.length; i++) {
-      var xandy = ol.proj.transform([coord.latlngs[i].lng, coord.latlngs[i].lat], 'EPSG:4326', 'EPSG:3857');
-      comp.push(xandy);
-    }
-
-    var firstroutesF = new ol.Feature({
-      geometry: new ol.geom.LineString(comp)
+    $.getJSON( "json/routes.json", function( data ) {
+      // Парсим все маршруты:
+      for(var i=0; i < data.routes.length; i++){
+        var item = data.routes[i][i+1][0];
+        $("#item"+i).html(item.name);
+        console.log(i+1 + " маршрут serializing");
+        // Парсим все кординаты из одного маршрута:
+        var routesArr = new Array();
+        for(var e=0; e < item.latlngs.length; e++){
+          routesArr.push(item.latlngs[e]);
+        }
+        var rend = {}
+        rend.latlngs = routesArr;
+        addRoutes(rend);
+      }
     });
 
-    var vectorLineFirst = new ol.source.Vector({});
-    vectorLineFirst.addFeature(firstroutesF);
+    var countLineRoutes = 0;
+    var vectorLayerLineFirst = new ol.layer.Vector({});
 
-    vectorLayerLineFirst = new ol.layer.Vector({
-      source: vectorLineFirst
-    });
+    function addRoutes(coord) {
+      if (countLineRoutes == 0) {
+        var comp = new Array();
 
-    map.addLayer(vectorLayerLineFirst);
-    countLineRoutes++;
-    console.log(comp);
-  }
-}
+        for (var i = 0; i < coord.latlngs.length; i++) {
+          var xandy = ol.proj.transform([coord.latlngs[i].lng, coord.latlngs[i].lat], 'EPSG:4326', 'EPSG:3857');
+          comp.push(xandy);
+        }
+
+        var firstroutesF = new ol.Feature({
+          geometry: new ol.geom.LineString(comp)
+        });
+
+        var vectorLineFirst = new ol.source.Vector({});
+        vectorLineFirst.addFeature(firstroutesF);
+
+        vectorLayerLineFirst = new ol.layer.Vector({
+          source: vectorLineFirst
+        });
+
+        map.addLayer(vectorLayerLineFirst);
+        countLineRoutes++;
+        console.log(comp);
+      }
+    }
 
 });
-
-navigator.notification.alert(
-    "ПРЕДУПРЕЖДЕНИЕ БЕЗОПАСНОСТИ",
-    "Уделяйте особое внимание обстановке на дорогах. Маршрут может оказаться неточным, на нём могут отсутствовать тротураы и пешеходные переходы.",
-    alertDismiss(),
-    "Продолжить"
-);
-
-function alertDismiss() {
-    console.log('alert dismissed');
 }
