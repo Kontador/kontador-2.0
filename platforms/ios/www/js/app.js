@@ -1,9 +1,3 @@
-$(function(){
-	document.addEventListener("deviceready", onDeviceReady, false);
-})
-
-function onDeviceReady() {};
-
 //---------------------------------------------------------------------------------------------------------
 
 // initialize ol
@@ -17,8 +11,8 @@ var map = new ol.Map({
 	layers: [
 		new ol.layer.Tile({
 			source: new ol.source.XYZ({
-                url: 'http://api.tiles.mapbox.com/v4/vanyaklimenko.iajg5k00/{z}/{x}/{y}@2x.png?access_token=pk.eyJ1IjoidmFueWFrbGltZW5rbyIsImEiOiJVOTRmSUowIn0.kmHbep2kGteMcaAQAlYllA',
-				tilePixelRatio: 2,
+				url: 'http://tiles.{a-z}.st.vmp.ru/{z}/{x}/{y}.png',
+				tilePixelRatio: 1,
 				minZoom: 12,
 				maxZoom: 18
 			}),
@@ -73,10 +67,28 @@ geolocation.on('change', function(evt) {
 	var accuracy = geolocation.getAccuracy();
 	var heading  = geolocation.getHeading() || 0;
 	var speed    = geolocation.getSpeed() || 0; // global
+	var coords = positions.getCoordinates();
 
 	console.log('Уважаемый пользователь! Уведомляем о том, что на данный момент произошло изменение позиции! Спасибо за понимание!' + position);
 
 	// -----  Speed.
+	speedometer(speed);
+
+	var m = Date.now();
+	addPosition(position, heading, m, speed);
+
+	
+	var len = coords.length;
+	if (len >= 2) {
+		deltaMean = (coords[len - 1][3] - coords[0][3]) / (len - 1);
+	}
+});
+
+geolocation.on('error', function() {
+	console.log('geolocation error');
+});
+
+function speedometer(speed){
 	var speedHTML = (speed * 3.6).toFixed(1);
 	if(speedHTML >= 10){
 		speedHTML = speedHTML.toString().substr(0, speedHTML.length - 2);
@@ -84,22 +96,7 @@ geolocation.on('change', function(evt) {
 	var speedHTML = speedHTML.toString().replace(".", ",");
 	console.log(speedHTML);
 	$('#speed').html(speedHTML);
-
-
-	var m = Date.now();
-	addPosition(position, heading, m, speed);
-
-	var coords = positions.getCoordinates();
-	var len = coords.length;
-	if (len >= 2) {
-		deltaMean = (coords[len - 1][3] - coords[0][3]) / (len - 1);
-	}
-
-});
-
-geolocation.on('error', function() {
-	console.log('geolocation error');
-});
+}
 
 function radToDeg(rad) {
 	return rad * 360 / (Math.PI * 2);
@@ -175,11 +172,10 @@ function render() {
 
 // TADA
 function geolocate() {
-	geolocation.setTracking(true); // Start position tracking
 	map.on('postcompose', render);
 	map.render();
+	geolocation.setTracking(true); // Start position tracking
 }
-
 geolocate();
 
 //---------------------------------------------------------------------------------------------------------
@@ -228,8 +224,8 @@ startTimer = function(){
 			hsecs = "<sup>" + hsecs + "</sup>";
 
 		}
-
 		$("#timer").html(hhours + hmins + hsecs);
+
 	}, 1000);
 
 		$('h1, h4, h2').removeClass('sick');
@@ -250,10 +246,8 @@ $("#startTimer").click(startTimer);
 
 //---------------------------------------------------------------------------------------------------------
 
-// parse json and get routes
-
-$.getJSON( "json/routes.json", function( data ) {
-	// for loop. parsing all routes.
+// parse json and show ALL routes
+function showRoutes(data){
 	for(var i=0; i < data.routes.length; i++){
 		var item = data.routes[i][i+1][0];
 
@@ -270,24 +264,61 @@ $.getJSON( "json/routes.json", function( data ) {
 		item.length = item.length.toString().slice(0, -1);
 		item.length = item.length.replace(".", ",");
 		$("#routes").append("\
-			<div class=\"item dist\">\
+			<div class=\"item "+ kind[item.kind].css +"\">\
 				<h4>"+ kind[item.kind].header +"</h4>\
 				<h3 id=\"item1\">"+ item.name +"</h3>\
 				<h1>" + item.length +" км</h1>\
 			<button><a onclick=\"start('dist')\">Начать</a></button>\
 			");
-
-		console.log(i+1 + " route serializing");
-		// parsing
-		var routesArr = new Array();
-		for(var e=0; e < item.latlngs.length; e++){
-			routesArr.push(item.latlngs[e]);
-		}
-		var rend = {}
-		rend.latlngs = routesArr;
-		addRoutes(rend);
+		console.log(i+1 + " route done");
 	}
+}
+
+// parse json and show one of the routes on the map.
+function getRoutes(data, id){
+	if(!id) id = 0; // route number.
+	var item = data.routes[id][id+1][0];
+
+	// parsing one route
+	var routesArr = new Array();
+	for(var e=0; e < item.latlngs.length; e++){
+		if(e == 0){
+			var firstCoordinate = [item.latlngs[e].lat, item.latlngs[e].lng];
+			distanceBeetween(firstCoordinate);
+		}
+		
+		routesArr.push(item.latlngs[e]);
+	}
+	var rend = {}
+	rend.latlngs = routesArr;
+	addRoutes(rend);
+}
+$.getJSON( "json/routes.json", function( data ) {
+	showRoutes(data);
+	setTimeout(getRoutes(data), 1000);
 });
+
+function distanceBeetween(first) {
+	if(!first) var first = [73.434314, 61.248798]; // начало
+	try {
+		var geo = geolocation.getPosition()[0];
+	} catch(e){
+		console.log("Мудрые говорят, что дистанция 'undefined' из-за того, что геолокация отключена...");
+		console.log("Пожалуйста, включите геолокацию.");
+	}
+	var second = ol.proj.transform([geolocation.getPosition()[0], geolocation.getPosition()[1]], 'EPSG:3857', 'EPSG:4326');
+	
+	var sphereA = new ol.Sphere(6378137);
+	var distance = sphereA.haversineDistance(second,first);
+	var normalDis = (Math.round(distance * 1)/1) + 500;
+	console.log(normalDis);
+	distanceLeft(normalDis);
+}
+
+// TO HTML
+function distanceLeft(distance){
+	$("#left").html(normalDis);
+}
 
 var countLineRoutes = 0;
 var vectorLayerLineFirst = new ol.layer.Vector({});
@@ -316,20 +347,26 @@ function addRoutes(coord) {
 		countLineRoutes++;
 	}
 }
+function delRoutes() {
+	map.removeLayer(vectorLayerLineFirst);
+	countLineRoutes = 0;
+}
 
 setTimeout(function(){
 	frameNumb = 0;
 	$(function () {
-			$('.fotorama')
-			.on('fotorama:showend ',
-							function (e, fotorama) {
-									var frameNumb = fotorama.activeIndex + 1;
-									console.log(frameNumb);
-							}
-					)
-					.fotorama();
-		});
-}, 500);
+		$('.fotorama').on('fotorama:showend ',function (e, fotorama) {
+			var frameNumb = fotorama.activeIndex;
+			console.log(frameNumb);
+			if(frameNumb != 0){
+				$.getJSON('json/routes.json', function(data){
+					delRoutes();
+					getRoutes(data, frameNumb);
+				});
+			}
+		}).fotorama();
+	});
+}, 800);
 
 function heat() {
 	$('.start').hide();
@@ -375,7 +412,3 @@ function stop() {
 heat();
 
 $('.start').click(route);
-
-$('.share').click(function() {
-    window.plugins.socialsharing.share('Проехал 4 км за 4:03 не без помощи Контадора!', null, null, 'http://kntdr.ru')
-});

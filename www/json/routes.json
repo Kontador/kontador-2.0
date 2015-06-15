@@ -1409,7 +1409,7 @@
       "4":[  
         {  
           "name":"Аэропорт",
-          "kind":"distance",
+          "kind":"dist",
           "length":0.72,
           "time":220,
           "latlngs":[  
